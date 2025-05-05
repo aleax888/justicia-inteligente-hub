@@ -25,7 +25,7 @@ const Index = () => {
                     Buscar resoluciones
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-legal-darkPurple">
+                <Button asChild size="lg" variant="outline" className="border-white text-gray-700 hover:bg-white hover:text-legal-darkPurple">
                   <Link to="/register">
                     Crear cuenta
                   </Link>
