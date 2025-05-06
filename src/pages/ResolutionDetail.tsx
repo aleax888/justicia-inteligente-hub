@@ -12,12 +12,19 @@ import {
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { mockResolutions, Resolution } from "@/data/mockData";
-import { Calendar, ChevronLeft, FilePlus, Bookmark, BookOpen, History } from "lucide-react";
+import { Calendar, ChevronLeft, FilePlus, Star, BookOpen, History } from "lucide-react";
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 const ResolutionDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [resolution, setResolution] = useState<Resolution | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     // Simulate API call
@@ -27,6 +34,10 @@ const ResolutionDetail = () => {
       setLoading(false);
     }, 500);
   }, [id]);
+
+  const toggleFavorite = () => {
+    setIsFavorite(prev => !prev);
+  };
 
   if (loading) {
     return (
@@ -90,10 +101,27 @@ const ResolutionDetail = () => {
           <p className="text-muted-foreground">{resolution.summary}</p>
           
           <div className="flex flex-wrap gap-3 mt-6">
-            <Button variant="outline" className="flex items-center gap-2">
-              <Bookmark className="h-4 w-4" />
-              Guardar
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className={isFavorite 
+                      ? "flex items-center gap-2 text-yellow-500" 
+                      : "flex items-center gap-2"
+                    }
+                    onClick={toggleFavorite}
+                  >
+                    <Star className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
+                    {isFavorite ? "Guardado" : "Guardar"}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Agregar a favoritos</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            
             <Button variant="outline" className="flex items-center gap-2">
               <FilePlus className="h-4 w-4" />
               Agregar nota
@@ -104,26 +132,13 @@ const ResolutionDetail = () => {
         {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <Tabs defaultValue="content" className="w-full">
+            <Tabs defaultValue="summary" className="w-full">
               <TabsList className="mb-6">
-                <TabsTrigger value="content">Documento</TabsTrigger>
                 <TabsTrigger value="summary">Resumen</TabsTrigger>
+                <TabsTrigger value="content">Documento</TabsTrigger>
                 <TabsTrigger value="criteria">Criterios</TabsTrigger>
               </TabsList>
-              
-              <TabsContent value="content">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Documento completo</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="border rounded-md p-6 bg-gray-50 whitespace-pre-line">
-                      {resolution.content}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
+
               <TabsContent value="summary">
                 <Card>
                   <CardHeader>
@@ -136,6 +151,19 @@ const ResolutionDetail = () => {
                       <li>Plazos y responsabilidades para entidades reguladas</li>
                       <li>Consideraciones especiales para el sector</li>
                     </ul>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="content">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Documento completo</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="border rounded-md p-6 bg-gray-50 whitespace-pre-line">
+                      {resolution.content}
+                    </div>
                   </CardContent>
                 </Card>
               </TabsContent>

@@ -4,9 +4,13 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SearchFilters } from "@/components/search/SearchFilters";
 import { ResolutionCard } from "@/components/search/ResolutionCard";
 import { mockResolutions } from "@/data/mockData";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CheckIcon, ClockIcon } from "lucide-react";
 
 const Search = () => {
   const [filteredResolutions, setFilteredResolutions] = useState(mockResolutions);
+  const [favoriteResolutions, setFavoriteResolutions] = useState<string[]>([]);
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   
   const handleSearch = (filters: any) => {
@@ -21,24 +25,32 @@ const Search = () => {
           return false;
         }
         
-        // Filter by entity
-        if (filters.entity && resolution.entity.toLowerCase() !== filters.entity) {
-          return false;
+        // Filter by entities (multiple selection)
+        if (filters.entities && filters.entities.length > 0) {
+          if (!filters.entities.includes(resolution.entity.toLowerCase())) {
+            return false;
+          }
         }
         
-        // Filter by tag
-        if (filters.tag && !resolution.tags.some((tag: string) => 
-          tag.toLowerCase() === filters.tag.toLowerCase().replace('-', ' '))) {
-          return false;
+        // Filter by tags (multiple selection)
+        if (filters.tags && filters.tags.length > 0) {
+          const hasMatchingTag = resolution.tags.some((tag: string) => 
+            filters.tags.includes(tag.toLowerCase().replace(' ', '-'))
+          );
+          if (!hasMatchingTag) {
+            return false;
+          }
         }
         
-        // Filter by date (based on year and month for simplicity)
-        if (filters.date) {
+        // Filter by date range
+        if (filters.dateRange && (filters.dateRange.from || filters.dateRange.to)) {
           const resolutionDate = new Date(resolution.date.split('/').reverse().join('-'));
-          const filterDate = new Date(filters.date);
           
-          if (resolutionDate.getFullYear() !== filterDate.getFullYear() || 
-              resolutionDate.getMonth() !== filterDate.getMonth()) {
+          if (filters.dateRange.from && resolutionDate < filters.dateRange.from) {
+            return false;
+          }
+          
+          if (filters.dateRange.to && resolutionDate > filters.dateRange.to) {
             return false;
           }
         }
@@ -51,6 +63,24 @@ const Search = () => {
     }, 500);
   };
 
+  const handleToggleFavorite = (id: string) => {
+    setFavoriteResolutions(prev => 
+      prev.includes(id)
+        ? prev.filter(resId => resId !== id)
+        : [...prev, id]
+    );
+  };
+
+  const getFavoriteResolutions = () => {
+    return mockResolutions.filter(res => favoriteResolutions.includes(res.id));
+  };
+
+  const getRecentlyViewedResolutions = () => {
+    // En una implementación real, esto vendría de una base de datos
+    // Para este frontend, mostramos algunos elementos de ejemplo
+    return mockResolutions.filter(res => recentlyViewed.includes(res.id));
+  };
+
   return (
     <MainLayout>
       <div className="legal-container py-8">
@@ -61,39 +91,97 @@ const Search = () => {
         
         <SearchFilters onSearch={handleSearch} />
         
-        <div className="mt-8">
-          {isSearching ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Buscando resoluciones...</p>
-            </div>
-          ) : filteredResolutions.length > 0 ? (
-            <>
-              <p className="mb-4 text-sm text-muted-foreground">
-                Se encontraron {filteredResolutions.length} resoluciones
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredResolutions.map(resolution => (
-                  <ResolutionCard 
-                    key={resolution.id}
-                    id={resolution.id}
-                    title={resolution.title}
-                    entity={resolution.entity}
-                    tags={resolution.tags}
-                    date={resolution.date}
-                    summary={resolution.summary}
-                  />
-                ))}
+        <Tabs defaultValue="search" className="mt-8">
+          <TabsList>
+            <TabsTrigger value="search">Resultados de búsqueda</TabsTrigger>
+            <TabsTrigger value="favorites" className="flex items-center gap-1">
+              <CheckIcon className="h-4 w-4" /> Favoritos
+            </TabsTrigger>
+            <TabsTrigger value="recent" className="flex items-center gap-1">
+              <ClockIcon className="h-4 w-4" /> Vistos recientemente
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="search">
+            {isSearching ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Buscando resoluciones...</p>
               </div>
-            </>
-          ) : (
+            ) : filteredResolutions.length > 0 ? (
+              <>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  Se encontraron {filteredResolutions.length} resoluciones
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredResolutions.map(resolution => (
+                    <ResolutionCard 
+                      key={resolution.id}
+                      id={resolution.id}
+                      title={resolution.title}
+                      entity={resolution.entity}
+                      tags={resolution.tags}
+                      date={resolution.date}
+                      summary={resolution.summary}
+                      isFavorite={favoriteResolutions.includes(resolution.id)}
+                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <h3 className="text-xl font-medium mb-2">No se encontraron resultados</h3>
+                <p className="text-muted-foreground">
+                  Intenta modificar los filtros de búsqueda para encontrar resoluciones
+                </p>
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="favorites">
+            {favoriteResolutions.length > 0 ? (
+              <>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  Tienes {favoriteResolutions.length} resoluciones guardadas en favoritos
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {getFavoriteResolutions().map(resolution => (
+                    <ResolutionCard 
+                      key={resolution.id}
+                      id={resolution.id}
+                      title={resolution.title}
+                      entity={resolution.entity}
+                      tags={resolution.tags}
+                      date={resolution.date}
+                      summary={resolution.summary}
+                      isFavorite={true}
+                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <h3 className="text-xl font-medium mb-2">No tienes resoluciones favoritas</h3>
+                <p className="text-muted-foreground">
+                  Agrega resoluciones a favoritos para verlas aquí
+                </p>
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="recent">
             <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-medium mb-2">No se encontraron resultados</h3>
-              <p className="text-muted-foreground">
-                Intenta modificar los filtros de búsqueda para encontrar resoluciones
+              <h3 className="text-xl font-medium mb-2">Resoluciones vistas recientemente</h3>
+              <p className="text-muted-foreground mb-4">
+                Aquí podrás ver las resoluciones que has consultado recientemente
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Esta funcionalidad estará disponible próximamente con la implementación del backend
               </p>
             </div>
-          )}
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </MainLayout>
   );

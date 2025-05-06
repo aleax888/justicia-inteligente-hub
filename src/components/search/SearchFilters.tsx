@@ -3,12 +3,19 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar as CalendarIcon, ChevronDown, ChevronUp } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const ENTITY_OPTIONS = [
   { label: "OEFA", value: "oefa" },
@@ -33,25 +40,47 @@ interface SearchFiltersProps {
 
 export function SearchFilters({ onSearch }: SearchFiltersProps) {
   const [keyword, setKeyword] = useState("");
-  const [entity, setEntity] = useState("");
-  const [tag, setTag] = useState("");
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [selectedEntities, setSelectedEntities] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [dateRange, setDateRange] = useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({
+    from: undefined,
+    to: undefined
+  });
   const [isExpanded, setIsExpanded] = useState(false);
   
   const handleSearch = () => {
     onSearch({
       keyword,
-      entity,
-      tag,
-      date
+      entities: selectedEntities,
+      tags: selectedTags,
+      dateRange
     });
   };
   
   const handleClear = () => {
     setKeyword("");
-    setEntity("");
-    setTag("");
-    setDate(undefined);
+    setSelectedEntities([]);
+    setSelectedTags([]);
+    setDateRange({ from: undefined, to: undefined });
+  };
+
+  const toggleEntity = (value: string) => {
+    setSelectedEntities(prev => 
+      prev.includes(value)
+        ? prev.filter(e => e !== value)
+        : [...prev, value]
+    );
+  };
+
+  const toggleTag = (value: string) => {
+    setSelectedTags(prev => 
+      prev.includes(value)
+        ? prev.filter(t => t !== value)
+        : [...prev, value]
+    );
   };
 
   return (
@@ -82,57 +111,82 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
         </Button>
         
         <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${isExpanded ? 'block' : 'hidden md:grid'}`}>
+          {/* Entidades - Selección múltiple */}
           <div className="space-y-2">
-            <Label htmlFor="entity">Entidad fiscalizadora</Label>
-            <Select value={entity} onValueChange={setEntity}>
-              <SelectTrigger id="entity">
-                <SelectValue placeholder="Seleccionar entidad" />
-              </SelectTrigger>
-              <SelectContent>
-                {ENTITY_OPTIONS.map(option => (
-                  <SelectItem key={option.value} value={option.value}>
+            <Label htmlFor="entity">Entidades fiscalizadoras</Label>
+            <div className="border rounded-md p-3 max-h-48 overflow-y-auto">
+              {ENTITY_OPTIONS.map(option => (
+                <div key={option.value} className="flex items-center space-x-2 mb-2">
+                  <Checkbox 
+                    id={`entity-${option.value}`} 
+                    checked={selectedEntities.includes(option.value)}
+                    onCheckedChange={() => toggleEntity(option.value)}
+                  />
+                  <label 
+                    htmlFor={`entity-${option.value}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
                     {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
           
+          {/* Etiquetas - Selección múltiple */}
           <div className="space-y-2">
-            <Label htmlFor="tag">Etiqueta</Label>
-            <Select value={tag} onValueChange={setTag}>
-              <SelectTrigger id="tag">
-                <SelectValue placeholder="Seleccionar etiqueta" />
-              </SelectTrigger>
-              <SelectContent>
-                {TAG_OPTIONS.map(option => (
-                  <SelectItem key={option.value} value={option.value}>
+            <Label htmlFor="tag">Etiquetas</Label>
+            <div className="border rounded-md p-3 max-h-48 overflow-y-auto">
+              {TAG_OPTIONS.map(option => (
+                <div key={option.value} className="flex items-center space-x-2 mb-2">
+                  <Checkbox 
+                    id={`tag-${option.value}`} 
+                    checked={selectedTags.includes(option.value)}
+                    onCheckedChange={() => toggleTag(option.value)}
+                  />
+                  <label 
+                    htmlFor={`tag-${option.value}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
                     {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
           
+          {/* Rango de fechas */}
           <div className="space-y-2">
-            <Label htmlFor="date">Fecha</Label>
+            <Label htmlFor="date-range">Rango de fechas</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  id="date"
+                  id="date-range"
                   variant="outline"
                   className="w-full justify-start text-left font-normal"
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, 'PP', { locale: es }) : <span>Seleccionar fecha</span>}
+                  {dateRange.from ? (
+                    dateRange.to ? (
+                      <>
+                        {format(dateRange.from, "dd/MM/yyyy", { locale: es })} - {format(dateRange.to, "dd/MM/yyyy", { locale: es })}
+                      </>
+                    ) : (
+                      format(dateRange.from, "dd/MM/yyyy", { locale: es })
+                    )
+                  ) : (
+                    <span>Seleccionar rango de fechas</span>
+                  )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
+                  mode="range"
+                  selected={dateRange}
+                  onSelect={setDateRange}
                   initialFocus
+                  locale={es}
+                  className="pointer-events-auto"
                 />
               </PopoverContent>
             </Popover>
