@@ -93,7 +93,7 @@ const Index = () => {
       </section>
 
       {/* Featured Resolutions Section */}
-      <section className="py-20 bg-white">
+      {/*<section className="py-20 bg-white">
         <div className="legal-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">Resoluciones que Deberías Conocer</h2>
@@ -126,7 +126,7 @@ const Index = () => {
             </Button>
           </div>
         </div>
-      </section>
+      </section>*/}
 
       {/* Call to action */}
       <section className="py-16 bg-white">

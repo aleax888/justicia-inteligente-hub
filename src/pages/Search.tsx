@@ -150,6 +150,7 @@ const Search = () => {
             <TabsTrigger value="recent" className="flex items-center gap-1">
               <ClockIcon className="h-4 w-4" /> Vistos recientemente
             </TabsTrigger>
+            <TabsTrigger value="relevant">Resoluciones que Deberías Conocer</TabsTrigger>
           </TabsList>
           
           <TabsContent value="search">
@@ -230,6 +231,42 @@ const Search = () => {
                 Esta funcionalidad estará disponible próximamente con la implementación del backend
               </p>
             </div>
+          </TabsContent>
+
+          <TabsContent value="relevant">
+            {isSearching ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Buscando resoluciones...</p>
+              </div>
+            ) : filteredResolutions.length > 0 ? (
+              <>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  Se encontraron {filteredResolutions.length} resoluciones
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredResolutions.map(resolution => (
+                    <ResolutionCard 
+                      key={resolution.id}
+                      id={resolution.id}
+                      title={resolution.title}
+                      entity={resolution.entity}
+                      tags={resolution.tags}
+                      date={resolution.date}
+                      summary={resolution.summary}
+                      isFavorite={favoriteResolutions.includes(resolution.id)}
+                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <h3 className="text-xl font-medium mb-2">No se encontraron resultados</h3>
+                <p className="text-muted-foreground">
+                  Intenta modificar los filtros de búsqueda para encontrar resoluciones
+                </p>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
