@@ -3,8 +3,13 @@ import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Link } from "react-router-dom";
 import { FileText, Search, BookOpen } from "lucide-react";
+import { ResolutionCard } from "@/components/search/ResolutionCard";
+import { mockResolutions } from "@/data/mockData";
 
 const Index = () => {
+  // Tomar solo las 3 primeras resoluciones para mostrar
+  const featuredResolutions = mockResolutions.slice(0, 3);
+
   return (
     <MainLayout>
       {/* Hero Section */}
@@ -83,6 +88,42 @@ const Index = () => {
                 Explora la normativa vinculada a cada resolución, con historial de cambios y artículos relevantes.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Resolutions Section */}
+      <section className="py-20 bg-white">
+        <div className="legal-container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Resoluciones que Deberías Conocer</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Consulta estas importantes resoluciones legales seleccionadas por nuestros expertos
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredResolutions.map((resolution) => (
+              <ResolutionCard 
+                key={resolution.id}
+                id={resolution.id}
+                title={resolution.title}
+                entity={resolution.entity}
+                tags={resolution.tags}
+                date={resolution.date}
+                summary={resolution.summary}
+                isFavorite={false}
+                onToggleFavorite={() => {}}
+              />
+            ))}
+          </div>
+          
+          <div className="text-center mt-10">
+            <Button asChild size="lg" className="bg-legal-purple hover:bg-legal-darkPurple">
+              <Link to="/search">
+                Ver más resoluciones
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
