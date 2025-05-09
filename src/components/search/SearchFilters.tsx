@@ -55,7 +55,7 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
               className="w-full"
             />
           </div>
-          <Button onClick={handleSearch} className="bg-legal-purple hover:bg-legal-darkPurple">
+          <Button onClick={handleSearch} className="bg-legal-blue hover:bg-legal-darkBlue">
             Buscar
           </Button>
         </div>

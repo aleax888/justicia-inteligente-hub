@@ -5,7 +5,7 @@ import { SearchFilters } from "@/components/search/SearchFilters";
 import { ResolutionCard } from "@/components/search/ResolutionCard";
 import { mockResolutions } from "@/data/mockData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckIcon, ClockIcon } from "lucide-react";
+import { Star, ClockIcon } from "lucide-react";
 import { hierarchicalFilterData } from "@/data/filterData";
 
 // Helper function to get all leaf node IDs from the filter data
@@ -145,7 +145,7 @@ const Search = () => {
           <TabsList>
             <TabsTrigger value="search">Resultados de búsqueda</TabsTrigger>
             <TabsTrigger value="favorites" className="flex items-center gap-1">
-              <CheckIcon className="h-4 w-4" /> Favoritos
+              <Star className="h-4 w-4" /> Favoritos
             </TabsTrigger>
             <TabsTrigger value="recent" className="flex items-center gap-1">
               <ClockIcon className="h-4 w-4" /> Vistos recientemente

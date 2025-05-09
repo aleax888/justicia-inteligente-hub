@@ -44,7 +44,7 @@ export function ResolutionCard({
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-3">
           {tags.map((tag, index) => (
-            <Badge key={index} variant="secondary" className="bg-legal-lightPurple text-legal-darkPurple">
+            <Badge key={index} variant="secondary" className="bg-legal-lightBlue text-legal-darkBlue">
               {tag}
             </Badge>
           ))}
@@ -73,7 +73,7 @@ export function ResolutionCard({
           </Tooltip>
         </TooltipProvider>
         
-        <Button asChild size="sm" className="bg-legal-purple hover:bg-legal-darkPurple">
+        <Button asChild size="sm" className="bg-legal-blue hover:bg-legal-darkBlue">
           <Link to={`/resolutions/${id}`}>
             <FileText className="h-4 w-4 mr-2" />
             Ver documento

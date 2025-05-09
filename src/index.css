@@ -14,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 252 86% 75%;
+    --primary: 210 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 256 33% 55%;
+    --secondary: 210 70% 60%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 263 85% 66%;
+    --accent: 210 85% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -31,18 +31,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 263 70% 50%;
+    --ring: 210 90% 40%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 263 70% 50%;
+    --sidebar-primary: 210 100% 50%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 210 90% 40%;
   }
 
   .dark {
@@ -55,16 +55,16 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 252 86% 75%;
+    --primary: 210 100% 50%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 256 33% 55%;
+    --secondary: 210 70% 60%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 263 85% 66%;
+    --accent: 210 85% 45%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -72,16 +72,16 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 263 70% 50%;
+    --ring: 210 90% 40%;
 
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 252 86% 75%;
+    --sidebar-primary: 210 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 210 90% 40%;
   }
 }
 
@@ -98,7 +98,7 @@
 
 @layer components {
   .legal-gradient {
-    @apply bg-gradient-to-r from-legal-purple to-legal-darkPurple;
+    @apply bg-gradient-to-r from-legal-blue to-legal-darkBlue;
   }
   
   .card-hover {
@@ -106,7 +106,7 @@
   }
 
   .tag {
-    @apply px-3 py-1 rounded-full text-xs font-medium bg-legal-lightPurple text-legal-darkPurple;
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-legal-lightBlue text-legal-darkBlue;
   }
   
   .legal-container {
