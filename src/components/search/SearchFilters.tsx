@@ -8,31 +8,9 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-
-const ENTITY_OPTIONS = [
-  { label: "OEFA", value: "oefa" },
-  { label: "OSINERGMIN", value: "osinergmin" },
-  { label: "SUNAFIL", value: "sunafil" },
-  { label: "SUNAT", value: "sunat" },
-  { label: "INDECOPI", value: "indecopi" }
-];
-
-const TAG_OPTIONS = [
-  { label: "Minería", value: "mineria" },
-  { label: "Industria", value: "industria" },
-  { label: "Construcción", value: "construccion" },
-  { label: "Medio Ambiente", value: "medio-ambiente" },
-  { label: "Seguridad", value: "seguridad" },
-  { label: "Laboral", value: "laboral" }
-];
+import { DateRange } from "react-day-picker";
+import { HierarchicalFilter } from "./HierarchicalFilter";
+import { hierarchicalFilterData } from "@/data/filterData";
 
 interface SearchFiltersProps {
   onSearch: (filters: any) => void;
@@ -40,12 +18,8 @@ interface SearchFiltersProps {
 
 export function SearchFilters({ onSearch }: SearchFiltersProps) {
   const [keyword, setKeyword] = useState("");
-  const [selectedEntities, setSelectedEntities] = useState<string[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [dateRange, setDateRange] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
+  const [selectedFilterOptions, setSelectedFilterOptions] = useState<string[]>([]);
+  const [dateRange, setDateRange] = useState<DateRange>({
     from: undefined,
     to: undefined
   });
@@ -54,33 +28,19 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
   const handleSearch = () => {
     onSearch({
       keyword,
-      entities: selectedEntities,
-      tags: selectedTags,
+      selectedFilters: selectedFilterOptions,
       dateRange
     });
   };
   
   const handleClear = () => {
     setKeyword("");
-    setSelectedEntities([]);
-    setSelectedTags([]);
+    setSelectedFilterOptions([]);
     setDateRange({ from: undefined, to: undefined });
   };
 
-  const toggleEntity = (value: string) => {
-    setSelectedEntities(prev => 
-      prev.includes(value)
-        ? prev.filter(e => e !== value)
-        : [...prev, value]
-    );
-  };
-
-  const toggleTag = (value: string) => {
-    setSelectedTags(prev => 
-      prev.includes(value)
-        ? prev.filter(t => t !== value)
-        : [...prev, value]
-    );
+  const handleFilterSelectionChange = (selectedIds: string[]) => {
+    setSelectedFilterOptions(selectedIds);
   };
 
   return (
@@ -110,49 +70,14 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
           {isExpanded ? <ChevronUp className="h-4 w-4 ml-2" /> : <ChevronDown className="h-4 w-4 ml-2" />}
         </Button>
         
-        <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${isExpanded ? 'block' : 'hidden md:grid'}`}>
-          {/* Entidades - Selección múltiple */}
-          <div className="space-y-2">
-            <Label htmlFor="entity">Entidades fiscalizadoras</Label>
-            <div className="border rounded-md p-3 max-h-48 overflow-y-auto">
-              {ENTITY_OPTIONS.map(option => (
-                <div key={option.value} className="flex items-center space-x-2 mb-2">
-                  <Checkbox 
-                    id={`entity-${option.value}`} 
-                    checked={selectedEntities.includes(option.value)}
-                    onCheckedChange={() => toggleEntity(option.value)}
-                  />
-                  <label 
-                    htmlFor={`entity-${option.value}`}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Etiquetas - Selección múltiple */}
-          <div className="space-y-2">
-            <Label htmlFor="tag">Etiquetas</Label>
-            <div className="border rounded-md p-3 max-h-48 overflow-y-auto">
-              {TAG_OPTIONS.map(option => (
-                <div key={option.value} className="flex items-center space-x-2 mb-2">
-                  <Checkbox 
-                    id={`tag-${option.value}`} 
-                    checked={selectedTags.includes(option.value)}
-                    onCheckedChange={() => toggleTag(option.value)}
-                  />
-                  <label 
-                    htmlFor={`tag-${option.value}`}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-            </div>
+        <div className={`${isExpanded ? 'block' : 'hidden md:block'}`}>
+          {/* Hierarchical Filter */}
+          <div className="mb-4">
+            <HierarchicalFilter 
+              filterData={hierarchicalFilterData}
+              selectedOptions={selectedFilterOptions}
+              onSelectionChange={handleFilterSelectionChange}
+            />
           </div>
           
           {/* Rango de fechas */}
@@ -191,12 +116,12 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
               </PopoverContent>
             </Popover>
           </div>
-        </div>
-        
-        <div className={`flex justify-end ${isExpanded ? 'block' : 'hidden md:block'}`}>
-          <Button variant="ghost" onClick={handleClear} className="text-muted-foreground">
-            Limpiar filtros
-          </Button>
+          
+          <div className="flex justify-end mt-4">
+            <Button variant="ghost" onClick={handleClear} className="text-muted-foreground">
+              Limpiar filtros
+            </Button>
+          </div>
         </div>
       </div>
     </div>

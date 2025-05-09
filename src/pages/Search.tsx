@@ -6,6 +6,56 @@ import { ResolutionCard } from "@/components/search/ResolutionCard";
 import { mockResolutions } from "@/data/mockData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckIcon, ClockIcon } from "lucide-react";
+import { hierarchicalFilterData } from "@/data/filterData";
+
+// Helper function to get all leaf node IDs from the filter data
+const getAllLeafNodeIds = (options: any[]): string[] => {
+  let leafIds: string[] = [];
+  
+  const extractLeafIds = (options: any[]) => {
+    for (const option of options) {
+      if (option.children && option.children.length > 0) {
+        extractLeafIds(option.children);
+      } else {
+        leafIds.push(option.id);
+      }
+    }
+  };
+  
+  for (const category of options) {
+    if (category.children) {
+      extractLeafIds(category.children);
+    }
+  }
+  
+  return leafIds;
+};
+
+// Flattened map of all filter options for easy lookup
+const buildFilterOptionsMap = () => {
+  const map = new Map();
+  
+  const addOptionsToMap = (options: any[]) => {
+    for (const option of options) {
+      map.set(option.id, option);
+      if (option.children && option.children.length > 0) {
+        addOptionsToMap(option.children);
+      }
+    }
+  };
+  
+  hierarchicalFilterData.forEach(category => {
+    map.set(category.id, category);
+    if (category.children && category.children.length > 0) {
+      addOptionsToMap(category.children);
+    }
+  });
+  
+  return map;
+};
+
+const filterOptionsMap = buildFilterOptionsMap();
+const allLeafNodeIds = getAllLeafNodeIds(hierarchicalFilterData);
 
 const Search = () => {
   const [filteredResolutions, setFilteredResolutions] = useState(mockResolutions);
@@ -25,19 +75,19 @@ const Search = () => {
           return false;
         }
         
-        // Filter by entities (multiple selection)
-        if (filters.entities && filters.entities.length > 0) {
-          if (!filters.entities.includes(resolution.entity.toLowerCase())) {
-            return false;
-          }
-        }
-        
-        // Filter by tags (multiple selection)
-        if (filters.tags && filters.tags.length > 0) {
-          const hasMatchingTag = resolution.tags.some((tag: string) => 
-            filters.tags.includes(tag.toLowerCase().replace(' ', '-'))
+        // Filter by selected hierarchical filters
+        if (filters.selectedFilters && filters.selectedFilters.length > 0) {
+          // This is a simplified approach; in a real app, you would have relationships between
+          // resolutions and filter options stored in your database
+          const hasMatchingFilter = resolution.tags.some((tag: string) => {
+            // Map tags to potential filter IDs (simplified for demo)
+            const tagId = tag.toLowerCase().replace(/\s+/g, '-');
+            return filters.selectedFilters.includes(tagId);
+          }) || resolution.entity.toLowerCase().includes(
+            filters.selectedFilters.some((id: string) => id.includes(resolution.entity.toLowerCase()))
           );
-          if (!hasMatchingTag) {
+          
+          if (!hasMatchingFilter) {
             return false;
           }
         }
