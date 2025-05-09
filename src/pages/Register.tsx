@@ -95,7 +95,7 @@ const Register = () => {
                   </Link>
                 </Label>
               </div>
-              <Button type="submit" className="w-full bg-legal-blue hover:bg-legal-darkBlue" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-black hover:bg-gray-800 text-white" disabled={isLoading}>
                 {isLoading ? "Registrando..." : "Registrarse"}
               </Button>
             </form>
