@@ -18,13 +18,13 @@
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 70% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 210 85% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 222.2 84% 4.9%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -59,7 +59,7 @@
     --primary-foreground: 0 0% 98%;
 
     --secondary: 210 70% 60%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 240 5.9% 10%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -106,7 +106,7 @@
   }
 
   .tag {
-    @apply px-3 py-1 rounded-full text-xs font-medium bg-legal-lightBlue text-legal-darkBlue;
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-legal-lightBlue text-gray-800;
   }
   
   .legal-container {

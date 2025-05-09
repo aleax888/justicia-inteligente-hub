@@ -36,20 +36,20 @@ export function ResolutionCard({
     <Card className="card-hover">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
-          <Badge variant="outline" className="mb-2">{entity}</Badge>
-          <span className="text-sm text-muted-foreground">{date}</span>
+          <Badge variant="outline" className="mb-2 text-gray-800">{entity}</Badge>
+          <span className="text-sm text-gray-600">{date}</span>
         </div>
-        <CardTitle className="line-clamp-2">{title}</CardTitle>
+        <CardTitle className="line-clamp-2 text-gray-900">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-3">
           {tags.map((tag, index) => (
-            <Badge key={index} variant="secondary" className="bg-legal-lightBlue text-legal-darkBlue">
+            <Badge key={index} variant="secondary" className="bg-legal-lightBlue text-gray-800">
               {tag}
             </Badge>
           ))}
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-3">{summary}</p>
+        <p className="text-sm text-gray-700 line-clamp-3">{summary}</p>
       </CardContent>
       <CardFooter className="flex justify-between">
         <TooltipProvider>
@@ -61,14 +61,14 @@ export function ResolutionCard({
                 onClick={onToggleFavorite}
                 className={isFavorite 
                   ? "text-yellow-500 hover:text-yellow-600" 
-                  : "text-muted-foreground hover:text-yellow-500"
+                  : "text-gray-500 hover:text-yellow-500"
                 }
               >
                 <Star className="h-5 w-5 fill-current" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Agregar a favoritos</p>
+              <p className="text-gray-800">Agregar a favoritos</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

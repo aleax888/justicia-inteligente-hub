@@ -44,15 +44,15 @@ const Login = () => {
       <div className="legal-container py-12 flex justify-center">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Iniciar sesión</CardTitle>
-            <p className="text-sm text-muted-foreground">
+            <CardTitle className="text-2xl font-bold text-gray-900">Iniciar sesión</CardTitle>
+            <p className="text-sm text-gray-600">
               Ingresa tus credenciales para acceder a tu cuenta
             </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Correo electrónico</Label>
+                <Label htmlFor="email" className="text-gray-700">Correo electrónico</Label>
                 <Input 
                   id="email" 
                   type="email" 
@@ -64,8 +64,8 @@ const Login = () => {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Contraseña</Label>
-                  <Link to="/forgot-password" className="text-sm text-legal-purple hover:text-legal-darkPurple">
+                  <Label htmlFor="password" className="text-gray-700">Contraseña</Label>
+                  <Link to="/forgot-password" className="text-sm text-legal-blue hover:text-legal-darkBlue">
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
@@ -79,17 +79,17 @@ const Login = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox id="remember" />
-                <Label htmlFor="remember" className="text-sm">Recordarme</Label>
+                <Label htmlFor="remember" className="text-sm text-gray-700">Recordarme</Label>
               </div>
-              <Button type="submit" className="w-full bg-legal-purple hover:bg-legal-darkPurple" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-legal-blue hover:bg-legal-darkBlue" disabled={isLoading}>
                 {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-center text-sm text-gray-700">
               ¿No tienes una cuenta?{" "}
-              <Link to="/register" className="text-legal-purple hover:text-legal-darkPurple font-medium">
+              <Link to="/register" className="text-legal-blue hover:text-legal-darkBlue font-medium">
                 Regístrate
               </Link>
             </div>

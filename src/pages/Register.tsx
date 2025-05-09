@@ -45,15 +45,15 @@ const Register = () => {
       <div className="legal-container py-12 flex justify-center">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Crear una cuenta</CardTitle>
-            <p className="text-sm text-muted-foreground">
+            <CardTitle className="text-2xl font-bold text-gray-900">Crear una cuenta</CardTitle>
+            <p className="text-sm text-gray-600">
               Completa tus datos para registrarte en la plataforma
             </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Nombre completo</Label>
+                <Label htmlFor="name" className="text-gray-700">Nombre completo</Label>
                 <Input 
                   id="name" 
                   placeholder="María López" 
@@ -63,7 +63,7 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Correo electrónico</Label>
+                <Label htmlFor="email" className="text-gray-700">Correo electrónico</Label>
                 <Input 
                   id="email" 
                   type="email" 
@@ -74,7 +74,7 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Contraseña</Label>
+                <Label htmlFor="password" className="text-gray-700">Contraseña</Label>
                 <Input 
                   id="password" 
                   type="password"
@@ -82,28 +82,28 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs text-gray-500 mt-1">
                   Mínimo 8 caracteres, incluyendo una letra mayúscula y un número
                 </p>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox id="terms" required />
-                <Label htmlFor="terms" className="text-sm">
+                <Label htmlFor="terms" className="text-sm text-gray-700">
                   Acepto los{" "}
-                  <Link to="/terms" className="text-legal-purple hover:text-legal-darkPurple">
+                  <Link to="/terms" className="text-legal-blue hover:text-legal-darkBlue">
                     términos y condiciones
                   </Link>
                 </Label>
               </div>
-              <Button type="submit" className="w-full bg-legal-purple hover:bg-legal-darkPurple" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-legal-blue hover:bg-legal-darkBlue" disabled={isLoading}>
                 {isLoading ? "Registrando..." : "Registrarse"}
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-center text-sm text-gray-700">
               ¿Ya tienes una cuenta?{" "}
-              <Link to="/login" className="text-legal-purple hover:text-legal-darkPurple font-medium">
+              <Link to="/login" className="text-legal-blue hover:text-legal-darkBlue font-medium">
                 Iniciar sesión
               </Link>
             </div>
