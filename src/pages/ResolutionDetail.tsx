@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Resolution, mapToGenericResolution } from "@/data/resolutionTypes";
 import { ResolutionDetail as ResolutionDetailComponent } from "@/components/resolution/ResolutionDetail";
-import { getFieldSchema, getSchemaByType } from "@/data/resolutionSchemas";
+import { getSchemaByType } from "@/data/resolutionSchemas";
 
 const ResolutionDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -79,7 +79,6 @@ const ResolutionDetail = () => {
     );
   }
 
-  const schema = getSchemaByType(resolution.type);
   // Determinar correctamente el campo de tags según el tipo de resolución
   const tagsFieldId = resolution.type === 'TASTEM' ? 'palabra_clave' : 'palabras_clave';
 

@@ -86,7 +86,7 @@ const Search = () => {
     setTimeout(() => {
       const results = resolutions.filter(resolution => {
         // Filter by keyword in title or summary
-        if (filters.keyword && !resolution.title.toLowerCase().includes(filters.keyword.toLowerCase()) && 
+        if (filters.keyword && !resolution.title?.toLowerCase().includes(filters.keyword.toLowerCase()) && 
             !resolution.summary.toLowerCase().includes(filters.keyword.toLowerCase())) {
           return false;
         }
@@ -139,12 +139,6 @@ const Search = () => {
     return resolutions.filter(res => favoriteResolutions.includes(res.id));
   };
 
-  const getRecentlyViewedResolutions = () => {
-    // En una implementación real, esto vendría de una base de datos
-    // Para este frontend, mostramos algunos elementos de ejemplo
-    return resolutions.filter(res => recentlyViewed.includes(res.id));
-  };
-
   return (
     <MainLayout>
       <div className="legal-container py-8">
@@ -182,7 +176,7 @@ const Search = () => {
                       key={resolution.id}
                       resolution={resolution}
                       isFavorite={favoriteResolutions.includes(resolution.id)}
-                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
+                      onToggleFavorite={handleToggleFavorite}
                     />
                   ))}
                 </div>
@@ -209,7 +203,7 @@ const Search = () => {
                       key={resolution.id}
                       resolution={resolution}
                       isFavorite={true}
-                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
+                      onToggleFavorite={handleToggleFavorite}
                     />
                   ))}
                 </div>

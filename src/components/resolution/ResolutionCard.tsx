@@ -27,7 +27,6 @@ export const ResolutionCard: React.FC<ResolutionCardProps> = ({
   onToggleFavorite 
 }) => {
   const schema = getSchemaByType(resolution.type);
-  const cardFields = schema.cardFields;
   const titleField = getFieldSchema(schema, 'n_resolucion');
   const dateField = getFieldSchema(schema, 'fecha_emision');
   
