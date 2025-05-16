@@ -7,8 +7,27 @@ export interface Resolution {
   date: string;
   summary: string;
   content: string;
-  pdfUrl: string;
-  relatedRegulations: RelatedRegulation[];
+  pdfUrl?: string;
+  relatedRegulations?: RelatedRegulation[];
+  
+  // Campos específicos por tipo de resolución
+  // SUNAFIL
+  n_resolucion?: string;
+  fecha_emision?: string;
+  acto_impugnado?: string;
+  infracciones?: string[];
+  medidas_administrativas?: string[];
+  sancion_final?: string;
+  palabras_clave?: string[];
+  sentido?: string;
+  
+  // Solo para TASTEM (singular)
+  palabra_clave?: string[];
+  
+  // Solo para CM
+  cuestiones_controvertidas?: string[];
+  cuestiones_adicionales?: string[];
+  persona_natural?: string;
 }
 
 export interface RelatedRegulation {
@@ -32,6 +51,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OEFA",
     tags: ["Minería", "Medio Ambiente"],
     date: "15/04/2023",
+    n_resolucion: "034-2023-OEFA/TFA-SE",
+    fecha_emision: "15/04/2023",
+    acto_impugnado: "Medidas correctivas ambientales",
+    infracciones: ["Contaminación ambiental", "Incumplimiento de EIA"],
+    medidas_administrativas: ["Suspensión de actividades", "Monitoreo especial"],
+    sancion_final: "Multa de 50 UIT",
+    palabras_clave: ["Minería", "Medio Ambiente", "EIA"],
+    sentido: "Confirma primera instancia",
     summary: "Establece criterios para la evaluación del impacto ambiental en zonas de operación minera, considerando los nuevos estándares internacionales y la normativa nacional actualizada.",
     content: `
       CONSIDERANDO:
@@ -72,6 +99,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OEFA",
     tags: ["Industria", "Recursos Hídricos", "Contaminación"],
     date: "22/08/2023",
+    n_resolucion: "128-2023-OEFA/TFA-SE",
+    fecha_emision: "22/08/2023",
+    acto_impugnado: "Autorización de vertimientos",
+    infracciones: ["Vertimientos sin autorización", "Exceso de límites máximos permisibles"],
+    medidas_administrativas: ["Plan de remediación", "Monitoreo trimestral"],
+    sancion_final: "Multa de 75 UIT",
+    palabras_clave: ["Industria", "Recursos Hídricos", "Contaminación", "Vertimientos"],
+    sentido: "Confirma parcialmente primera instancia",
     summary: "Establece nuevos parámetros y restricciones para los vertimientos industriales en fuentes de agua natural, con énfasis en la protección de ecosistemas acuáticos.",
     content: `
       CONSIDERANDO:
@@ -108,6 +143,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OEFA",
     tags: ["Hidrocarburos", "Monitoreo", "Amazonía"],
     date: "03/10/2023",
+    n_resolucion: "202-2023-OEFA/TFA-SE",
+    fecha_emision: "03/10/2023",
+    acto_impugnado: "Plan de monitoreo ambiental",
+    infracciones: ["Incumplimiento de frecuencia de monitoreo", "Puntos de monitoreo insuficientes"],
+    medidas_administrativas: ["Actualización de plan de monitoreo", "Auditoría ambiental"],
+    sancion_final: "Multa de 65 UIT",
+    palabras_clave: ["Hidrocarburos", "Monitoreo", "Amazonía", "Biodiversidad"],
+    sentido: "Revoca parcialmente primera instancia",
     summary: "Define los criterios técnicos para el monitoreo ambiental en actividades de exploración y explotación petrolera en la Amazonía peruana, con énfasis en ecosistemas sensibles.",
     content: `
       CONSIDERANDO:
@@ -146,6 +189,14 @@ export const mockResolutions: Resolution[] = [
     entity: "SUNAFIL",
     tags: ["Construcción", "Seguridad", "Laboral"],
     date: "23/11/2022",
+    n_resolucion: "127-2022-SUNAFIL/TFL",
+    fecha_emision: "23/11/2022",
+    acto_impugnado: "Acto de fiscalización laboral",
+    infracciones: ["Incumplimiento de normas de seguridad", "Falta de capacitación"],
+    medidas_administrativas: ["Capacitación obligatoria", "Implementación de protocolos"],
+    sancion_final: "Multa de 15 UIT",
+    palabras_clave: ["Construcción", "Seguridad", "Laboral", "Seguridad ocupacional"],
+    sentido: "Favorable al administrado",
     summary: "Establece lineamientos para la implementación de medidas de seguridad ocupacional en proyectos de construcción civil, enfatizando la responsabilidad solidaria entre contratistas y subcontratistas.",
     content: `
       CONSIDERANDO:
@@ -186,6 +237,14 @@ export const mockResolutions: Resolution[] = [
     entity: "SUNAFIL",
     tags: ["Teletrabajo", "Fiscalización", "Laboral"],
     date: "17/03/2023",
+    n_resolucion: "045-2023-SUNAFIL/TFL",
+    fecha_emision: "17/03/2023",
+    acto_impugnado: "Acto de fiscalización de teletrabajo",
+    infracciones: ["Incumplimiento de registro de jornada", "Falta de condiciones ergonómicas"],
+    medidas_administrativas: ["Implementación de registro digital", "Evaluación ergonómica"],
+    sancion_final: "Multa de 10 UIT",
+    palabras_clave: ["Teletrabajo", "Fiscalización", "Laboral", "Ergonomía", "Digital"],
+    sentido: "Desfavorable al administrado",
     summary: "Establece criterios para la fiscalización laboral en modalidades de teletrabajo y trabajo remoto, adaptándose a las nuevas realidades laborales post-pandemia.",
     content: `
       CONSIDERANDO:
@@ -222,6 +281,14 @@ export const mockResolutions: Resolution[] = [
     entity: "SUNAFIL",
     tags: ["Sindical", "Servicios", "Derechos Laborales"],
     date: "28/07/2023",
+    n_resolucion: "183-2023-SUNAFIL/TFL",
+    fecha_emision: "28/07/2023",
+    acto_impugnado: "Acto de fiscalización sindical",
+    infracciones: ["Obstaculización de derechos sindicales", "Discriminación sindical"],
+    medidas_administrativas: ["Reconocimiento de representatividad", "Restitución de derechos"],
+    sancion_final: "Multa de 25 UIT",
+    palabras_clave: ["Sindical", "Servicios", "Derechos Laborales", "Intermediación"],
+    sentido: "Parcialmente favorable al administrado",
     summary: "Resuelve controversia sobre la aplicación de derechos sindicales en empresas de intermediación laboral, estableciendo criterios para determinar la representatividad sindical.",
     content: `
       CONSIDERANDO:
@@ -260,6 +327,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OSINERGMIN",
     tags: ["Industria", "Energía"],
     date: "07/02/2023",
+    n_resolucion: "052-2023-OSINERGMIN/TASTEM",
+    fecha_emision: "07/02/2023",
+    acto_impugnado: "Sanción administrativa energética",
+    infracciones: ["Incumplimiento regulatorio energético", "Falta de mantenimiento preventivo"],
+    medidas_administrativas: ["Auditoría energética", "Plan de mantenimiento"],
+    sancion_final: "Multa de 40 UIT",
+    palabra_clave: ["Industria", "Energía", "Regulación", "Instalaciones eléctricas"],
+    sentido: "Desfavorable al administrado",
     summary: "Determina los parámetros de cumplimiento para instalaciones eléctricas en plantas industriales, con énfasis en la eficiencia energética y seguridad operacional.",
     content: `
       CONSIDERANDO:
@@ -300,6 +375,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OSINERGMIN",
     tags: ["Gas Natural", "Distribución", "Regulación"],
     date: "12/04/2023",
+    n_resolucion: "078-2023-OSINERGMIN/TASTEM",
+    fecha_emision: "12/04/2023",
+    acto_impugnado: "Sanción administrativa de distribución de gas",
+    infracciones: ["Incumplimiento de planes de expansión", "Deficiencias en seguridad"],
+    medidas_administrativas: ["Actualización de plan quinquenal", "Capacitación comunitaria"],
+    sancion_final: "Multa de 50 UIT",
+    palabra_clave: ["Gas Natural", "Distribución", "Regulación", "Seguridad", "Expansión"],
+    sentido: "Parcialmente favorable al administrado",
     summary: "Establece criterios técnicos para la expansión de redes de distribución de gas natural en zonas urbanas, priorizando la seguridad y el acceso equitativo al servicio.",
     content: `
       CONSIDERANDO:
@@ -336,6 +419,14 @@ export const mockResolutions: Resolution[] = [
     entity: "OSINERGMIN",
     tags: ["Energía Renovable", "Generación", "Inversión"],
     date: "30/06/2023",
+    n_resolucion: "125-2023-OSINERGMIN/TASTEM",
+    fecha_emision: "30/06/2023",
+    acto_impugnado: "Sanción administrativa sobre generación eléctrica",
+    infracciones: ["Incumplimiento de emisiones", "Deficiencias en interconexión"],
+    medidas_administrativas: ["Actualización tecnológica", "Auditoría de emisiones"],
+    sancion_final: "Multa de 35 UIT",
+    palabra_clave: ["Energía Renovable", "Generación", "Inversión", "Emisiones", "Despacho"],
+    sentido: "Favorable al administrado",
     summary: "Define criterios regulatorios para facilitar la inversión en proyectos de generación eléctrica con fuentes renovables no convencionales, con enfoque en la reducción de emisiones.",
     content: `
       CONSIDERANDO:
@@ -374,6 +465,14 @@ export const mockResolutions: Resolution[] = [
     entity: "INDECOPI",
     tags: ["Digital", "Consumidor"],
     date: "28/03/2023",
+    n_resolucion: "076-2023-INDECOPI/CPC",
+    fecha_emision: "28/03/2023",
+    acto_impugnado: "Controversia contractual",
+    cuestiones_controvertidas: ["Cumplimiento de contrato digital", "Condiciones de servicio"],
+    palabras_clave: ["Digital", "Consumidor", "Servicios digitales", "Protección"],
+    sentido: "Parcialmente fundado",
+    persona_natural: "Persona jurídica",
+    cuestiones_adicionales: ["Privacidad de datos", "Consentimiento informado"],
     summary: "Define los estándares de protección al consumidor aplicables a servicios digitales, incluyendo aspectos relacionados con la privacidad de datos y términos de servicio.",
     content: `
       CONSIDERANDO:
@@ -410,10 +509,18 @@ export const mockResolutions: Resolution[] = [
   },
   {
     id: "res-004",
-    title: "Resolución N° 089-2022-SUNAT/TF sobre tributación en el sector comercial",
+    title: "Resolución N° 089-2022-INDECOPI/TF sobre tributación en el sector comercial",
     entity: "INDECOPI",
     tags: ["Comercio", "Tributación"],
     date: "12/09/2022",
+    n_resolucion: "089-2022-INDECOPI/TF",
+    fecha_emision: "12/09/2022",
+    acto_impugnado: "Controversia contractual",
+    cuestiones_controvertidas: ["Cumplimiento de contrato", "Indemnización por daños"],
+    palabras_clave: ["Comercio", "Tributación", "E-commerce", "Beneficios fiscales"],
+    sentido: "Fundado",
+    persona_natural: "Persona jurídica",
+    cuestiones_adicionales: ["Documentación fehaciente", "Sustancia económica"],
     summary: "Establece criterios interpretativos para la aplicación de beneficios tributarios en empresas del sector comercial, con especial énfasis en el comercio electrónico.",
     content: `
       CONSIDERANDO:
@@ -454,6 +561,14 @@ export const mockResolutions: Resolution[] = [
     entity: "INDECOPI",
     tags: ["E-commerce", "Publicidad", "Consumidor"],
     date: "15/05/2023",
+    n_resolucion: "103-2023-INDECOPI/CPC",
+    fecha_emision: "15/05/2023",
+    acto_impugnado: "Controversia contractual",
+    cuestiones_controvertidas: ["Prácticas comerciales engañosas", "Políticas de devolución"],
+    palabras_clave: ["E-commerce", "Publicidad", "Consumidor", "Transparencia"],
+    sentido: "Parcialmente fundado",
+    persona_natural: "Persona jurídica",
+    cuestiones_adicionales: ["Visualización de precios", "Cargos adicionales"],
     summary: "Establece estándares sobre prácticas comerciales en plataformas de comercio electrónico, enfatizando la transparencia en precios, promociones y políticas de devolución.",
     content: `
       CONSIDERANDO:
@@ -490,6 +605,14 @@ export const mockResolutions: Resolution[] = [
     entity: "INDECOPI",
     tags: ["Propiedad Intelectual", "Digital", "Derechos de Autor"],
     date: "08/08/2023",
+    n_resolucion: "154-2023-INDECOPI/CPC",
+    fecha_emision: "08/08/2023",
+    acto_impugnado: "Controversia contractual",
+    cuestiones_controvertidas: ["Autoría en contenido generado por IA", "Protección intelectual"],
+    palabras_clave: ["Propiedad Intelectual", "Digital", "Derechos de Autor", "IA", "Inteligencia Artificial"],
+    sentido: "Infundado",
+    persona_natural: "Persona jurídica",
+    cuestiones_adicionales: ["Intervención humana", "Originalidad", "Predictibilidad"],
     summary: "Resuelve controversia sobre derechos de autor en contenidos generados por algoritmos de inteligencia artificial, estableciendo criterios para determinar la autoría y protección.",
     content: `
       CONSIDERANDO:
@@ -521,4 +644,3 @@ export const mockResolutions: Resolution[] = [
     ]
   },
 ];
-

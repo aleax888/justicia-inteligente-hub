@@ -46,40 +46,48 @@ export const mapToGenericResolution = (res: any, type: string): Resolution => {
     relatedRegulations: res.relatedRegulations || []
   };
   
-  // Map type-specific fields
+  // Map type-specific fields - extracting data from the resolution object
+  // instead of hardcoding values
   switch (type) {
     case 'SUNAFIL':
-      genericRes.n_resolucion = res.title.split(' ')[1];
-      genericRes.fecha_emision = res.date;
-      genericRes.acto_impugnado = "Acto de fiscalización laboral";
-      genericRes.infracciones = ["Incumplimiento de normas de seguridad", "Falta de capacitación"];
-      genericRes.palabras_clave = res.tags;
-      genericRes.sentido = "Favorable al administrado";
+      genericRes.n_resolucion = res.n_resolucion || res.title.split(' ')[1];
+      genericRes.fecha_emision = res.fecha_emision || res.date;
+      genericRes.acto_impugnado = res.acto_impugnado || "";
+      genericRes.infracciones = res.infracciones || [];
+      genericRes.palabras_clave = res.palabras_clave || res.tags;
+      genericRes.sentido = res.sentido || "";
+      genericRes.medidas_administrativas = res.medidas_administrativas || [];
+      genericRes.sancion_final = res.sancion_final || "";
       break;
     case 'TASTEM':
-      genericRes.n_resolucion = res.title.split(' ')[1];
-      genericRes.fecha_emision = res.date;
-      genericRes.acto_impugnado = "Sanción administrativa energética";
-      genericRes.infracciones = ["Incumplimiento regulatorio energético"];
-      genericRes.palabra_clave = res.tags;
-      genericRes.sentido = "Desfavorable al administrado";
+      genericRes.n_resolucion = res.n_resolucion || res.title.split(' ')[1];
+      genericRes.fecha_emision = res.fecha_emision || res.date;
+      genericRes.acto_impugnado = res.acto_impugnado || "";
+      genericRes.infracciones = res.infracciones || [];
+      genericRes.palabra_clave = res.palabra_clave || res.tags;
+      genericRes.sentido = res.sentido || "";
+      genericRes.medidas_administrativas = res.medidas_administrativas || [];
+      genericRes.sancion_final = res.sancion_final || "";
       break;
     case 'TFA':
-      genericRes.n_resolucion = res.title.split(' ')[1];
-      genericRes.fecha_emision = res.date;
-      genericRes.acto_impugnado = "Medidas correctivas ambientales";
-      genericRes.infracciones = ["Contaminación ambiental", "Incumplimiento de EIA"];
-      genericRes.palabras_clave = res.tags;
-      genericRes.sentido = "Confirma primera instancia";
+      genericRes.n_resolucion = res.n_resolucion || res.title.split(' ')[1];
+      genericRes.fecha_emision = res.fecha_emision || res.date;
+      genericRes.acto_impugnado = res.acto_impugnado || "";
+      genericRes.infracciones = res.infracciones || [];
+      genericRes.palabras_clave = res.palabras_clave || res.tags;
+      genericRes.sentido = res.sentido || "";
+      genericRes.medidas_administrativas = res.medidas_administrativas || [];
+      genericRes.sancion_final = res.sancion_final || "";
       break;
     case 'CM':
-      genericRes.n_resolucion = res.title.split(' ')[1];
-      genericRes.fecha_emision = res.date;
-      genericRes.acto_impugnado = "Controversia contractual";
-      genericRes.cuestiones_controvertidas = ["Cumplimiento de contrato", "Indemnización por daños"];
-      genericRes.palabras_clave = res.tags;
-      genericRes.sentido = "Parcialmente fundado";
-      genericRes.persona_natural = "Persona jurídica";
+      genericRes.n_resolucion = res.n_resolucion || res.title.split(' ')[1];
+      genericRes.fecha_emision = res.fecha_emision || res.date;
+      genericRes.acto_impugnado = res.acto_impugnado || "";
+      genericRes.cuestiones_controvertidas = res.cuestiones_controvertidas || [];
+      genericRes.palabras_clave = res.palabras_clave || res.tags;
+      genericRes.sentido = res.sentido || "";
+      genericRes.cuestiones_adicionales = res.cuestiones_adicionales || [];
+      genericRes.persona_natural = res.persona_natural || "";
       break;
   }
   

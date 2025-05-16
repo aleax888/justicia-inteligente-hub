@@ -30,6 +30,8 @@ export const ResolutionCard: React.FC<ResolutionCardProps> = ({
   const cardFields = schema.cardFields;
   const titleField = getFieldSchema(schema, 'n_resolucion');
   const dateField = getFieldSchema(schema, 'fecha_emision');
+  
+  // Determine correct tags field based on resolution type
   const tagsFieldId = resolution.type === 'TASTEM' ? 'palabra_clave' : 'palabras_clave';
   const tagsField = getFieldSchema(schema, tagsFieldId);
   const summaryField = getFieldSchema(schema, 'resumen');
@@ -45,11 +47,11 @@ export const ResolutionCard: React.FC<ResolutionCardProps> = ({
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <Badge variant="outline" className="mb-2 text-gray-800">{resolution.entity}</Badge>
-          {dateField && (
+          {dateField && resolution[dateField.id] && (
             <span className="text-sm text-gray-600">{resolution[dateField.id]}</span>
           )}
         </div>
-        {titleField && (
+        {titleField && resolution[titleField.id] && (
           <div className="line-clamp-2 text-gray-900 text-xl font-semibold">
             {resolution[titleField.id]}
           </div>
@@ -57,23 +59,23 @@ export const ResolutionCard: React.FC<ResolutionCardProps> = ({
       </CardHeader>
       <CardContent>
         {/* Tags section */}
-        {tagsField && resolution[tagsField.id] && (
+        {tagsField && resolution[tagsFieldId] && (
           <div className="flex flex-wrap gap-2 mb-3">
-            {Array.isArray(resolution[tagsField.id]) ? 
-              resolution[tagsField.id].map((tag: string, index: number) => (
+            {Array.isArray(resolution[tagsFieldId]) ? 
+              resolution[tagsFieldId].map((tag: string, index: number) => (
                 <Badge key={index} variant="secondary" className="bg-legal-lightBlue text-gray-800">
                   {tag}
                 </Badge>
               )) : 
               <Badge variant="secondary" className="bg-legal-lightBlue text-gray-800">
-                {resolution[tagsField.id]}
+                {resolution[tagsFieldId]}
               </Badge>
             }
           </div>
         )}
         
         {/* Summary section */}
-        {summaryField && (
+        {summaryField && resolution.summary && (
           <p className="text-sm text-gray-700 line-clamp-3">{resolution.summary}</p>
         )}
       </CardContent>
