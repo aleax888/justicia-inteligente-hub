@@ -3,24 +3,28 @@ import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Link } from "react-router-dom";
 import { FileText, Search, BookOpen } from "lucide-react";
-import { ResolutionCard } from "@/components/search/ResolutionCard";
+import { ResolutionCard } from "@/components/resolution/ResolutionCard";
 import { mockResolutions } from "@/data/mockData";
+import { Resolution, mapToGenericResolution } from "@/data/resolutionTypes";
 
 const Index = () => {
-  // Tomar solo las 3 primeras resoluciones para mostrar
-  const featuredResolutions = mockResolutions.slice(0, 3);
+  // Create different types of featured resolutions
+  const featuredResolutions = mockResolutions.slice(0, 4).map((res, index) => {
+    const types = ['SUNAFIL', 'TASTEM', 'TFA', 'CM'];
+    return mapToGenericResolution(res, types[index % types.length]);
+  });
 
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-legal-blue to-legal-darkBlue text-white py-20">
+      <section className="bg-gradient-to-r from-legal-blue to-legal-darkBlue py-20">
         <div className="legal-container">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left space-y-6 animate-fade-in">
-              <h1 className="text-4xl md:text-5xl font-bold">
+              <h1 className="text-4xl md:text-5xl font-bold text-white">
                 Soluciones legales inteligentes para una justicia más eficiente
               </h1>
-              <p className="text-lg opacity-90">
+              <p className="text-lg opacity-90 text-white">
                 Accede a resoluciones legales, normativas y herramientas de análisis para potenciar tu trabajo jurídico.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -30,7 +34,7 @@ const Index = () => {
                     Buscar resoluciones
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-legal-darkBlue">
+                <Button asChild size="lg" variant="outline" className="border-white text-gray-800 hover:bg-white hover:text-legal-darkBlue">
                   <Link to="/register">
                     Crear cuenta
                   </Link>
@@ -93,7 +97,7 @@ const Index = () => {
       </section>
 
       {/* Featured Resolutions Section */}
-      {/*<section className="py-20 bg-white">
+      <section className="py-20 bg-white">
         <div className="legal-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">Resoluciones que Deberías Conocer</h2>
@@ -102,16 +106,11 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredResolutions.map((resolution) => (
               <ResolutionCard 
                 key={resolution.id}
-                id={resolution.id}
-                title={resolution.title}
-                entity={resolution.entity}
-                tags={resolution.tags}
-                date={resolution.date}
-                summary={resolution.summary}
+                resolution={resolution}
                 isFavorite={false}
                 onToggleFavorite={() => {}}
               />
@@ -119,14 +118,14 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-10">
-            <Button asChild size="lg" className="bg-legal-blue hover:bg-legal-darkBlue">
+            <Button asChild size="lg" className="bg-legal-blue hover:bg-legal-darkBlue text-white">
               <Link to="/search">
                 Ver más resoluciones
               </Link>
             </Button>
           </div>
         </div>
-      </section>*/}
+      </section>
 
       {/* Call to action */}
       <section className="py-16 bg-white">
@@ -138,7 +137,7 @@ const Index = () => {
             <p className="text-gray-800 mb-6 max-w-2xl mx-auto">
               Regístrate hoy y comienza a utilizar todas nuestras herramientas especializadas para el sector legal.
             </p>
-            <Button asChild size="lg" className="bg-legal-blue hover:bg-legal-darkBlue">
+            <Button asChild size="lg" className="bg-legal-blue hover:bg-legal-darkBlue text-white">
               <Link to="/register">
                 Comenzar ahora
               </Link>

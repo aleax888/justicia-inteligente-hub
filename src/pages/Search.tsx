@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SearchFilters } from "@/components/search/SearchFilters";
-import { ResolutionCard } from "@/components/search/ResolutionCard";
+import { ResolutionCard } from "@/components/resolution/ResolutionCard";
 import { mockResolutions } from "@/data/mockData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star, ClockIcon } from "lucide-react";
 import { hierarchicalFilterData } from "@/data/filterData";
+import { Resolution, mapToGenericResolution } from "@/data/resolutionTypes";
 
 // Helper function to get all leaf node IDs from the filter data
 const getAllLeafNodeIds = (options: any[]): string[] => {
@@ -58,7 +59,22 @@ const filterOptionsMap = buildFilterOptionsMap();
 const allLeafNodeIds = getAllLeafNodeIds(hierarchicalFilterData);
 
 const Search = () => {
-  const [filteredResolutions, setFilteredResolutions] = useState(mockResolutions);
+  // Create typed resolutions from mock data
+  const [resolutions, setResolutions] = useState<Resolution[]>(
+    mockResolutions.map((res, index) => {
+      // Map entity names to resolution types
+      const entityToType: {[key: string]: string} = {
+        'OEFA': 'TFA',
+        'SUNAFIL': 'SUNAFIL',
+        'OSINERGMIN': 'TASTEM',
+        'INDECOPI': 'CM'
+      };
+      const type = entityToType[res.entity] || 'TFA';
+      return mapToGenericResolution(res, type);
+    })
+  );
+  
+  const [filteredResolutions, setFilteredResolutions] = useState<Resolution[]>(resolutions);
   const [favoriteResolutions, setFavoriteResolutions] = useState<string[]>([]);
   const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -68,7 +84,7 @@ const Search = () => {
     
     // Simulate search delay
     setTimeout(() => {
-      const results = mockResolutions.filter(resolution => {
+      const results = resolutions.filter(resolution => {
         // Filter by keyword in title or summary
         if (filters.keyword && !resolution.title.toLowerCase().includes(filters.keyword.toLowerCase()) && 
             !resolution.summary.toLowerCase().includes(filters.keyword.toLowerCase())) {
@@ -77,10 +93,8 @@ const Search = () => {
         
         // Filter by selected hierarchical filters
         if (filters.selectedFilters && filters.selectedFilters.length > 0) {
-          // This is a simplified approach; in a real app, you would have relationships between
-          // resolutions and filter options stored in your database
+          // This is a simplified approach
           const hasMatchingFilter = resolution.tags.some((tag: string) => {
-            // Map tags to potential filter IDs (simplified for demo)
             const tagId = tag.toLowerCase().replace(/\s+/g, '-');
             return filters.selectedFilters.includes(tagId);
           }) || resolution.entity.toLowerCase().includes(
@@ -122,20 +136,20 @@ const Search = () => {
   };
 
   const getFavoriteResolutions = () => {
-    return mockResolutions.filter(res => favoriteResolutions.includes(res.id));
+    return resolutions.filter(res => favoriteResolutions.includes(res.id));
   };
 
   const getRecentlyViewedResolutions = () => {
     // En una implementación real, esto vendría de una base de datos
     // Para este frontend, mostramos algunos elementos de ejemplo
-    return mockResolutions.filter(res => recentlyViewed.includes(res.id));
+    return resolutions.filter(res => recentlyViewed.includes(res.id));
   };
 
   return (
     <MainLayout>
       <div className="legal-container py-8">
-        <h1 className="text-3xl font-bold mb-2">Búsqueda de resoluciones</h1>
-        <p className="text-muted-foreground mb-6">
+        <h1 className="text-3xl font-bold mb-2 text-gray-800">Búsqueda de resoluciones</h1>
+        <p className="text-muted-foreground mb-6 text-gray-600">
           Utiliza los filtros para encontrar resoluciones relevantes para tu caso
         </p>
         
@@ -150,29 +164,23 @@ const Search = () => {
             <TabsTrigger value="recent" className="flex items-center gap-1">
               <ClockIcon className="h-4 w-4" /> Vistos recientemente
             </TabsTrigger>
-            <TabsTrigger value="relevant">Resoluciones que Deberías Conocer</TabsTrigger>
           </TabsList>
           
           <TabsContent value="search">
             {isSearching ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">Buscando resoluciones...</p>
+                <p className="text-muted-foreground text-gray-600">Buscando resoluciones...</p>
               </div>
             ) : filteredResolutions.length > 0 ? (
               <>
-                <p className="mb-4 text-sm text-muted-foreground">
+                <p className="mb-4 text-sm text-muted-foreground text-gray-600">
                   Se encontraron {filteredResolutions.length} resoluciones
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredResolutions.map(resolution => (
                     <ResolutionCard 
                       key={resolution.id}
-                      id={resolution.id}
-                      title={resolution.title}
-                      entity={resolution.entity}
-                      tags={resolution.tags}
-                      date={resolution.date}
-                      summary={resolution.summary}
+                      resolution={resolution}
                       isFavorite={favoriteResolutions.includes(resolution.id)}
                       onToggleFavorite={() => handleToggleFavorite(resolution.id)}
                     />
@@ -181,8 +189,8 @@ const Search = () => {
               </>
             ) : (
               <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <h3 className="text-xl font-medium mb-2">No se encontraron resultados</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-medium mb-2 text-gray-800">No se encontraron resultados</h3>
+                <p className="text-muted-foreground text-gray-600">
                   Intenta modificar los filtros de búsqueda para encontrar resoluciones
                 </p>
               </div>
@@ -192,19 +200,14 @@ const Search = () => {
           <TabsContent value="favorites">
             {favoriteResolutions.length > 0 ? (
               <>
-                <p className="mb-4 text-sm text-muted-foreground">
+                <p className="mb-4 text-sm text-muted-foreground text-gray-600">
                   Tienes {favoriteResolutions.length} resoluciones guardadas en favoritos
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {getFavoriteResolutions().map(resolution => (
                     <ResolutionCard 
                       key={resolution.id}
-                      id={resolution.id}
-                      title={resolution.title}
-                      entity={resolution.entity}
-                      tags={resolution.tags}
-                      date={resolution.date}
-                      summary={resolution.summary}
+                      resolution={resolution}
                       isFavorite={true}
                       onToggleFavorite={() => handleToggleFavorite(resolution.id)}
                     />
@@ -213,8 +216,8 @@ const Search = () => {
               </>
             ) : (
               <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <h3 className="text-xl font-medium mb-2">No tienes resoluciones favoritas</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-medium mb-2 text-gray-800">No tienes resoluciones favoritas</h3>
+                <p className="text-muted-foreground text-gray-600">
                   Agrega resoluciones a favoritos para verlas aquí
                 </p>
               </div>
@@ -223,50 +226,14 @@ const Search = () => {
           
           <TabsContent value="recent">
             <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-medium mb-2">Resoluciones vistas recientemente</h3>
-              <p className="text-muted-foreground mb-4">
+              <h3 className="text-xl font-medium mb-2 text-gray-800">Resoluciones vistas recientemente</h3>
+              <p className="text-muted-foreground mb-4 text-gray-600">
                 Aquí podrás ver las resoluciones que has consultado recientemente
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground text-gray-600">
                 Esta funcionalidad estará disponible próximamente con la implementación del backend
               </p>
             </div>
-          </TabsContent>
-
-          <TabsContent value="relevant">
-            {isSearching ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">Buscando resoluciones...</p>
-              </div>
-            ) : filteredResolutions.length > 0 ? (
-              <>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Se encontraron {filteredResolutions.length} resoluciones
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredResolutions.map(resolution => (
-                    <ResolutionCard 
-                      key={resolution.id}
-                      id={resolution.id}
-                      title={resolution.title}
-                      entity={resolution.entity}
-                      tags={resolution.tags}
-                      date={resolution.date}
-                      summary={resolution.summary}
-                      isFavorite={favoriteResolutions.includes(resolution.id)}
-                      onToggleFavorite={() => handleToggleFavorite(resolution.id)}
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <h3 className="text-xl font-medium mb-2">No se encontraron resultados</h3>
-                <p className="text-muted-foreground">
-                  Intenta modificar los filtros de búsqueda para encontrar resoluciones
-                </p>
-              </div>
-            )}
           </TabsContent>
         </Tabs>
       </div>
