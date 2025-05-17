@@ -1,4 +1,3 @@
-
 export interface Resolution {
   id: string;
   title: string;
@@ -9,7 +8,7 @@ export interface Resolution {
   content: string;
   pdfUrl?: string;
   relatedRegulations?: RelatedRegulation[];
-  
+
   // Campos específicos por tipo de resolución
   // SUNAFIL
   n_resolucion?: string;
@@ -20,10 +19,10 @@ export interface Resolution {
   sancion_final?: string;
   palabras_clave?: string[];
   sentido?: string;
-  
+
   // Solo para TASTEM (singular)
   palabra_clave?: string[];
-  
+
   // Solo para CM
   cuestiones_controvertidas?: string[];
   cuestiones_adicionales?: string[];
@@ -44,603 +43,178 @@ export interface RegulationChange {
 }
 
 export const mockResolutions: Resolution[] = [
-  // TFA Resolutions (OEFA)
+  // Resoluciones CM (Minería)
   {
-    id: "res-001",
-    title: "Resolución N° 034-2023-OEFA/TFA-SE sobre impacto ambiental en zona minera",
-    entity: "OEFA",
-    tags: ["Minería", "Medio Ambiente"],
-    date: "15/04/2023",
-    n_resolucion: "034-2023-OEFA/TFA-SE",
-    fecha_emision: "15/04/2023",
-    acto_impugnado: "Medidas correctivas ambientales",
-    infracciones: ["Contaminación ambiental", "Incumplimiento de EIA"],
-    medidas_administrativas: ["Suspensión de actividades", "Monitoreo especial"],
-    sancion_final: "Multa de 50 UIT",
-    palabras_clave: ["Minería", "Medio Ambiente", "EIA"],
-    sentido: "Confirma primera instancia",
-    summary: "Establece criterios para la evaluación del impacto ambiental en zonas de operación minera, considerando los nuevos estándares internacionales y la normativa nacional actualizada.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29325, se crea el Sistema Nacional de Evaluación y Fiscalización Ambiental, el cual está a cargo del Organismo de Evaluación y Fiscalización Ambiental - OEFA como ente rector;
-
-      Que, el Tribunal de Fiscalización Ambiental ha evaluado el recurso de apelación presentado por la empresa minera sobre los criterios de evaluación ambiental;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios para determinar el impacto ambiental en zonas mineras deberán considerar: (i) el análisis de la línea base ambiental, (ii) los estándares de calidad ambiental aplicables, y (iii) las mejores prácticas internacionales.
-
-      Artículo 2°.- Las entidades supervisadas deberán implementar estos criterios en un plazo no mayor a 120 días calendario.
-    `,
-    pdfUrl: "/documents/res-001.pdf",
+    id: "res-cm-1038",
+    title: "Resolución N° 1038-2024-MINEM/CM",
+    entity: "MINEM",
+    tags: ["Minería", "Procedimiento Administrativo"],
+    date: "20/12/2024",
+    n_resolucion: "1038-2024-MINEM/CM",
+    fecha_emision: "20.12.2024",
+    acto_impugnado: "Resolución de Presidencia N° 2762-2023-INGEMMET/PE/PM",
+    cuestiones_controvertidas: ["Determinar si la Resolución de Presidencia N° 2762-2023-INGEMMET/PE/PM que declara, entre otros, el abandono del petitorio minero 'ING MIN ROJAS' por no efectuar las publicaciones de los carteles de aviso dentro del plazo otorgado, se encuentra conforme a ley."],
+    palabras_clave: ["Abandono", "Notificación defectuosa", "Avisos de petitorio minero", "Nulidad"],
+    sentido: "Se declara la nulidad de oficio de la Resolución de Presidencia N° 2762-2023-INGEMMET/PE/PM",
+    summary: "La diligencia de la notificación de los avisos del petitorio minero 'ING MIN ROJAS' evidencian inconsistencias respecto al color de la fachada, por lo cual se considera una notificación defectuosa que no surtió efecto legal alguno, por lo cual corresponde notificar nuevamente la resolución con los avisos de petitorio de concesión minera.",
+    content: "La diligencia de la notificación de los avisos del petitorio minero 'ING MIN ROJAS' evidencian inconsistencias respecto al color de la fachada, por lo cual se considera una notificación defectuosa que no surtió efecto legal alguno, por lo cual corresponde notificar nuevamente la resolución con los avisos de petitorio de concesión minera. En consecuencia, al declarar el abandono del petitorio minero por no publicar los avisos de petitorio minero después de haberse advertido una notificación defectuosa de dichos avisos, se incurrió en causal de nulidad.",
     relatedRegulations: [
       {
-        id: "reg-001",
-        title: "Ley N° 29325 - Ley del Sistema Nacional de Evaluación y Fiscalización Ambiental",
-        description: "Establece el marco normativo para el Sistema Nacional de Evaluación y Fiscalización Ambiental.",
-        changes: [
-          {
-            date: "10/03/2021",
-            description: "Modificación del artículo 17 sobre las infracciones administrativas y sanciones"
-          },
-          {
-            date: "05/07/2019",
-            description: "Modificación del artículo 11 sobre funciones generales"
-          }
-        ],
-        articles: ["Artículo 11", "Artículo 17", "Artículo 19"]
+        id: "reg-cm-001",
+        title: "Decreto Supremo N° 004-2019-JUS, Texto Único Ordenado de la Ley N° 27444 - Ley del Procedimiento Administrativo General",
+        description: "Normas sobre procedimiento administrativo general",
+        changes: [],
+        articles: ["Numeral 1.2 del artículo IV del Título Preliminar", "numeral 16.1 del artículo 16", "numerales 21.1 y 21.5 del artículo 21", "numeral 26.1 del artículo 26", "numeral 2) del artículo 148", "artículo 149"]
       }
     ]
   },
   {
-    id: "res-006",
-    title: "Resolución N° 128-2023-OEFA/TFA-SE sobre vertimientos industriales",
-    entity: "OEFA",
-    tags: ["Industria", "Recursos Hídricos", "Contaminación"],
-    date: "22/08/2023",
-    n_resolucion: "128-2023-OEFA/TFA-SE",
-    fecha_emision: "22/08/2023",
-    acto_impugnado: "Autorización de vertimientos",
-    infracciones: ["Vertimientos sin autorización", "Exceso de límites máximos permisibles"],
-    medidas_administrativas: ["Plan de remediación", "Monitoreo trimestral"],
-    sancion_final: "Multa de 75 UIT",
-    palabras_clave: ["Industria", "Recursos Hídricos", "Contaminación", "Vertimientos"],
-    sentido: "Confirma parcialmente primera instancia",
-    summary: "Establece nuevos parámetros y restricciones para los vertimientos industriales en fuentes de agua natural, con énfasis en la protección de ecosistemas acuáticos.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29325, se crea el Sistema Nacional de Evaluación y Fiscalización Ambiental, el cual está a cargo del Organismo de Evaluación y Fiscalización Ambiental - OEFA como ente rector;
-
-      Que, el Tribunal de Fiscalización Ambiental ha evaluado el recurso de apelación presentado por la empresa industrial sobre los parámetros de vertimiento;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los parámetros para vertimientos industriales deberán considerar: (i) la capacidad de dilución del cuerpo receptor, (ii) los estándares nacionales de calidad ambiental para agua, y (iii) el impacto en ecosistemas acuáticos.
-
-      Artículo 2°.- Las empresas industriales deberán implementar sistemas de tratamiento avanzado en un plazo no mayor a 180 días calendario.
-    `,
-    pdfUrl: "/documents/res-006.pdf",
+    id: "res-cm-1036",
+    title: "Resolución N° 1036-2024-MINEM/CM",
+    entity: "MINEM",
+    tags: ["Minería", "Comunidades Campesinas"],
+    date: "20/12/2024",
+    n_resolucion: "1036-2024-MINEM/CM",
+    fecha_emision: "20.12.2024",
+    acto_impugnado: "Resolución de fecha 3 de abril de 2024 emitida por la Directora de Concesiones Mineras del INGEMMET que declara improcedente la oposición formulada por la Comunidad Campesina de Urpay contra el petitorio minero CHARODZ 2.",
+    cuestiones_controvertidas: ["Determinar si la Resolución de fecha 3 de abril de 2024 emitida por la Directora de Concesiones Mineras del INGEMMET que declara improcedente la oposición formulada por la Comunidad Campesina de Urpay contra el petitorio minero CHARODZ 2, se emitió conforme a ley."],
+    palabras_clave: ["Improcedencia", "Oposición al trámite del petitorio", "Comunidad Campesina", "Derecho al predio", "Convenio 169 OIT", "Consulta previa"],
+    sentido: "Se declara infundado el recurso de revisión formulado por la Comunidad Campesina de Urpay",
+    summary: "El título de concesión minera no concede la propiedad del terreno superficial donde se ubica; por ende, el derecho al aprovechamiento de los recursos contenidos en el subsuelo, mediante el otorgamiento de una concesión minera, es distinto al derecho de propiedad del terreno superficial.",
+    content: "Con el Decreto Supremo N° 020-2020-EM (nuevo Reglamento de Procedimientos Mineros), el titular de una concesión minera con título definitivo es quien puede oponer su mejor derecho a cualquier petitorio minero que se haya formulado sobre todo o parte de un área. Por ende, cuando se formula una oposición alegando afectación de predios u otros derechos distintos al que otorga el título de concesión minera, aquella deviene en improcedente. El título de concesión minera no concede la propiedad del terreno superficial donde se ubica; por ende, el derecho al aprovechamiento de los recursos contenidos en el subsuelo, mediante el otorgamiento de una concesión minera, es distinto al derecho de propiedad del terreno superficial, por lo cual, aquella no restringe ni limita los derechos adquiridos por terceros sobre predios que ocupen como propietarios o poseedores.",
     relatedRegulations: [
       {
-        id: "reg-006",
-        title: "D.S. N° 010-2019-MINAM - Límites Máximos Permisibles para efluentes de actividades industriales",
-        description: "Establece los límites máximos permisibles para efluentes de actividades industriales vertidos a cuerpos de agua.",
-        changes: [
-          {
-            date: "15/05/2022",
-            description: "Actualización de los parámetros para metales pesados"
-          }
-        ],
-        articles: ["Artículo 3", "Artículo 5", "Anexo 1"]
-      }
-    ]
-  },
-  {
-    id: "res-007",
-    title: "Resolución N° 202-2023-OEFA/TFA-SE sobre monitoreo en actividades petroleras",
-    entity: "OEFA",
-    tags: ["Hidrocarburos", "Monitoreo", "Amazonía"],
-    date: "03/10/2023",
-    n_resolucion: "202-2023-OEFA/TFA-SE",
-    fecha_emision: "03/10/2023",
-    acto_impugnado: "Plan de monitoreo ambiental",
-    infracciones: ["Incumplimiento de frecuencia de monitoreo", "Puntos de monitoreo insuficientes"],
-    medidas_administrativas: ["Actualización de plan de monitoreo", "Auditoría ambiental"],
-    sancion_final: "Multa de 65 UIT",
-    palabras_clave: ["Hidrocarburos", "Monitoreo", "Amazonía", "Biodiversidad"],
-    sentido: "Revoca parcialmente primera instancia",
-    summary: "Define los criterios técnicos para el monitoreo ambiental en actividades de exploración y explotación petrolera en la Amazonía peruana, con énfasis en ecosistemas sensibles.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29325, se crea el Sistema Nacional de Evaluación y Fiscalización Ambiental, el cual está a cargo del Organismo de Evaluación y Fiscalización Ambiental - OEFA como ente rector;
-
-      Que, el Tribunal de Fiscalización Ambiental ha evaluado el recurso de apelación sobre los criterios de monitoreo ambiental;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios técnicos para el monitoreo ambiental en la Amazonía incluyen: (i) frecuencia trimestral obligatoria, (ii) puntos de monitoreo en cuerpos de agua superficial y subterránea, y (iii) análisis de biodiversidad.
-
-      Artículo 2°.- Las empresas petroleras deberán presentar informes trimestrales de monitoreo a partir del primer trimestre de 2024.
-    `,
-    pdfUrl: "/documents/res-007.pdf",
-    relatedRegulations: [
+        id: "reg-cm-002",
+        title: "Constitución",
+        description: "Normas constitucionales",
+        changes: [],
+        articles: ["Artículo 70"]
+      },
       {
-        id: "reg-007",
-        title: "R.M. N° 120-2021-MINAM - Protocolo de Monitoreo de Calidad Ambiental",
-        description: "Establece los protocolos estandarizados para el monitoreo de calidad ambiental.",
-        changes: [
-          {
-            date: "22/02/2023",
-            description: "Actualización de protocolos para ecosistemas amazónicos"
-          }
-        ],
-        articles: ["Sección II", "Sección IV", "Anexo 3"]
+        id: "reg-cm-003",
+        title: "Ley N° 26821, Ley Orgánica para el Aprovechamiento Sostenible de los Recursos Naturales",
+        description: "Normas sobre aprovechamiento de recursos naturales",
+        changes: [],
+        articles: ["Artículo 19"]
+      },
+      {
+        id: "reg-cm-004",
+        title: "Decreto Supremo N° 014-92-EM, Texto Único Ordenado de la Ley General de Minería",
+        description: "Normas generales de minería",
+        changes: [],
+        articles: ["Artículos 9 y 144"]
       }
     ]
   },
 
-  // SUNAFIL Resolutions
+  // Resoluciones SUNAFIL
   {
-    id: "res-002",
-    title: "Resolución N° 127-2022-SUNAFIL/TFL sobre seguridad ocupacional en construcción",
+    id: "res-sunafil-182",
+    title: "Resolución N° 182-2024-SUNAFIL/TFL-Primera Sala",
     entity: "SUNAFIL",
-    tags: ["Construcción", "Seguridad", "Laboral"],
-    date: "23/11/2022",
-    n_resolucion: "127-2022-SUNAFIL/TFL",
-    fecha_emision: "23/11/2022",
-    acto_impugnado: "Acto de fiscalización laboral",
-    infracciones: ["Incumplimiento de normas de seguridad", "Falta de capacitación"],
-    medidas_administrativas: ["Capacitación obligatoria", "Implementación de protocolos"],
-    sancion_final: "Multa de 15 UIT",
-    palabras_clave: ["Construcción", "Seguridad", "Laboral", "Seguridad ocupacional"],
-    sentido: "Favorable al administrado",
-    summary: "Establece lineamientos para la implementación de medidas de seguridad ocupacional en proyectos de construcción civil, enfatizando la responsabilidad solidaria entre contratistas y subcontratistas.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29981, se crea la Superintendencia Nacional de Fiscalización Laboral - SUNAFIL;
-
-      Que, el Tribunal de Fiscalización Laboral ha evaluado el recurso de revisión presentado por la empresa constructora;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los lineamientos para la implementación de medidas de seguridad ocupacional en proyectos de construcción incluyen: (i) evaluación de riesgos previa, (ii) capacitación certificada, y (iii) supervisión constante.
-
-      Artículo 2°.- Se establece la responsabilidad solidaria entre contratistas y subcontratistas en materia de seguridad ocupacional.
-    `,
-    pdfUrl: "/documents/res-002.pdf",
+    tags: ["Seguridad y Salud en el Trabajo", "Accidente Laboral"],
+    date: "23/02/2024",
+    n_resolucion: "182-2024-SUNAFIL/TFL-Primera Sala",
+    fecha_emision: "23.02.2024",
+    acto_impugnado: "Resolución de Intendencia 702-2022-SUNAFIL/ILM",
+    infracciones: [
+      "Incumplimiento de la normativa sobre seguridad y salud en el trabajo relativa al deber de vigilancia",
+      "Incumplimiento de la normativa sobre seguridad y salud en el trabajo en materia de identificación de peligros y evaluación de riesgos",
+      "Infracción a la labor inspectiva, por negarse injustificadamente al recorrido y constatación, por parte de los inspectores comisionados, del lugar del accidente mortal"
+    ],
+    medidas_administrativas: [],
+    sancion_final: "Se dejó sin efecto la multa inicial de S/. 840,000.00",
+    palabras_clave: ["Legalidad", "Debido procedimiento", "Motivación", "Tipicidad", "Presunción de Licitud", "Carga de la Prueba", "Multicausalidad", "Nexo Causal", "Deber de vigilancia", "IPER (Identificación de Peligros y Evaluación de Riesgos)", "Actos Sub Estándar", "Obstrucción labor inspectiva", "(SCTR) Seguro Complementario de Trabajo de Riesgo"],
+    sentido: "Fundado el recurso de revisión y se deja sin efecto la sanción impuesta mediante la Resolución de Sub Intendencia 228-2021-SUNAFIL/ILM/SIRE4, confirmada por Resolución de Intendencia 702-2022-SUNAFIL/ILM",
+    summary: "La empresa señala que se vulneraron los principios de legalidad, debido procedimiento (falta de motivación) y tipicidad, dado que se le sanciona con dos hechos que configuran una misma conducta infractora.",
+    content: "1. Fundamentos del recurso de revisión: La empresa señala que se vulneraron los principios de legalidad, debido procedimiento (falta de motivación) y tipicidad, dado que se le sanciona con dos hechos que configuran una misma conducta infractora (incumplimiento del artículo 28.10 del RLGIT), siendo que tampoco se motiva debidamente las razones por las que la empresa había incurrido en la infracción, obviando la relación causal entre los supuestos incumplimientos y el accidente de trabajo. Asimismo, precisa que no se acreditó el nexo causal exigido entre el incumplimiento y el accidente mortal, siendo que el accidente se debió a actos sub estándar del trabajador, indicando que la empresa sí cumplió con su deber de vigilancia sobre la contratista. En cuanto a la identificación de peligros y evaluación de riesgos, menciona que el IPERC de la empresa contratista sí contemplaba el peligro de golpes por equipos, causa real de la muerte del trabajador. En cuanto a la negativa al ingreso de los inspectores al centro de trabajo, se debió a que dichos inspectores no contaban con la cobertura del SCTR necesaria para ingresar a la zona del accidente (interior mina). Por lo cual, no habría negado el ingreso, siendo que solo se solicitó verificar la cobertura.",
     relatedRegulations: [
       {
-        id: "reg-002",
-        title: "Ley N° 29783 - Ley de Seguridad y Salud en el Trabajo",
-        description: "Ley que establece el marco normativo para la seguridad y salud en el trabajo.",
-        changes: [
-          {
-            date: "12/07/2022",
-            description: "Modificación del artículo 49 sobre obligaciones del empleador"
-          },
-          {
-            date: "15/09/2020",
-            description: "Modificación del artículo 76 sobre prevención de riesgos"
-          }
-        ],
-        articles: ["Artículo 49", "Artículo 76", "Artículo 82"]
-      }
-    ]
-  },
-  {
-    id: "res-008",
-    title: "Resolución N° 045-2023-SUNAFIL/TFL sobre teletrabajo y fiscalización laboral",
-    entity: "SUNAFIL",
-    tags: ["Teletrabajo", "Fiscalización", "Laboral"],
-    date: "17/03/2023",
-    n_resolucion: "045-2023-SUNAFIL/TFL",
-    fecha_emision: "17/03/2023",
-    acto_impugnado: "Acto de fiscalización de teletrabajo",
-    infracciones: ["Incumplimiento de registro de jornada", "Falta de condiciones ergonómicas"],
-    medidas_administrativas: ["Implementación de registro digital", "Evaluación ergonómica"],
-    sancion_final: "Multa de 10 UIT",
-    palabras_clave: ["Teletrabajo", "Fiscalización", "Laboral", "Ergonomía", "Digital"],
-    sentido: "Desfavorable al administrado",
-    summary: "Establece criterios para la fiscalización laboral en modalidades de teletrabajo y trabajo remoto, adaptándose a las nuevas realidades laborales post-pandemia.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29981, se crea la Superintendencia Nacional de Fiscalización Laboral - SUNAFIL;
-
-      Que, el Tribunal de Fiscalización Laboral ha evaluado el recurso de revisión sobre fiscalización en teletrabajo;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios para la fiscalización en modalidades de teletrabajo incluyen: (i) verificación de jornada laboral, (ii) condiciones ergonómicas, y (iii) derecho a la desconexión digital.
-
-      Artículo 2°.- Los empleadores deberán implementar registros digitales de cumplimiento de jornada en un plazo no mayor a 60 días calendario.
-    `,
-    pdfUrl: "/documents/res-008.pdf",
-    relatedRegulations: [
+        id: "reg-sunafil-001",
+        title: "Constitución Política del Perú de 1993",
+        description: "Normas constitucionales",
+        changes: [],
+        articles: ["Artículos 2 (inciso 24, literal e)", "22", "139 (numeral 9)"]
+      },
       {
-        id: "reg-008",
-        title: "Ley N° 31572 - Ley del Teletrabajo",
-        description: "Establece el marco normativo para el teletrabajo como modalidad especial de prestación de servicios.",
-        changes: [
-          {
-            date: "03/02/2023",
-            description: "Promulgación de la nueva ley de teletrabajo"
-          }
-        ],
-        articles: ["Artículo 5", "Artículo 6", "Artículo 9"]
-      }
-    ]
-  },
-  {
-    id: "res-009",
-    title: "Resolución N° 183-2023-SUNAFIL/TFL sobre derechos sindicales en empresas de servicios",
-    entity: "SUNAFIL",
-    tags: ["Sindical", "Servicios", "Derechos Laborales"],
-    date: "28/07/2023",
-    n_resolucion: "183-2023-SUNAFIL/TFL",
-    fecha_emision: "28/07/2023",
-    acto_impugnado: "Acto de fiscalización sindical",
-    infracciones: ["Obstaculización de derechos sindicales", "Discriminación sindical"],
-    medidas_administrativas: ["Reconocimiento de representatividad", "Restitución de derechos"],
-    sancion_final: "Multa de 25 UIT",
-    palabras_clave: ["Sindical", "Servicios", "Derechos Laborales", "Intermediación"],
-    sentido: "Parcialmente favorable al administrado",
-    summary: "Resuelve controversia sobre la aplicación de derechos sindicales en empresas de intermediación laboral, estableciendo criterios para determinar la representatividad sindical.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 29981, se crea la Superintendencia Nacional de Fiscalización Laboral - SUNAFIL;
-
-      Que, el Tribunal de Fiscalización Laboral ha evaluado el recurso de revisión sobre derechos sindicales;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios para determinar la representatividad sindical en empresas de intermediación incluyen: (i) número de afiliados efectivos, (ii) antigüedad del sindicato, y (iii) participación en negociaciones colectivas previas.
-
-      Artículo 2°.- Las empresas de intermediación laboral deberán reconocer la representatividad sindical conforme a estos criterios en un plazo no mayor a 30 días calendario.
-    `,
-    pdfUrl: "/documents/res-009.pdf",
-    relatedRegulations: [
-      {
-        id: "reg-009",
-        title: "D.S. N° 010-2003-TR - TUO de la Ley de Relaciones Colectivas de Trabajo",
-        description: "Establece el marco normativo para las relaciones colectivas de trabajo.",
-        changes: [
-          {
-            date: "18/04/2022",
-            description: "Modificación sobre negociación colectiva por rama de actividad"
-          }
-        ],
-        articles: ["Artículo 4", "Artículo 9", "Artículo 46"]
+        id: "reg-sunafil-002",
+        title: "Ley N° 29981, Ley que crea la Superintendencia Nacional de Fiscalización Laboral (SUNAFIL)",
+        description: "Normas sobre fiscalización laboral",
+        changes: [],
+        articles: ["Artículos 1", "7", "15"]
       }
     ]
   },
 
-  // TASTEM Resolutions (OSINERGMIN)
+  // Resoluciones TASTEM
   {
-    id: "res-003",
-    title: "Resolución N° 052-2023-OSINERGMIN/TASTEM sobre regulación energética en industria",
+    id: "res-tastem-60",
+    title: "Resolución N° 60-2024-OS/TASTEM-S2",
     entity: "OSINERGMIN",
-    tags: ["Industria", "Energía"],
-    date: "07/02/2023",
-    n_resolucion: "052-2023-OSINERGMIN/TASTEM",
-    fecha_emision: "07/02/2023",
-    acto_impugnado: "Sanción administrativa energética",
-    infracciones: ["Incumplimiento regulatorio energético", "Falta de mantenimiento preventivo"],
-    medidas_administrativas: ["Auditoría energética", "Plan de mantenimiento"],
-    sancion_final: "Multa de 40 UIT",
-    palabra_clave: ["Industria", "Energía", "Regulación", "Instalaciones eléctricas"],
-    sentido: "Desfavorable al administrado",
-    summary: "Determina los parámetros de cumplimiento para instalaciones eléctricas en plantas industriales, con énfasis en la eficiencia energética y seguridad operacional.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 26734, se crea el Organismo Supervisor de la Inversión en Energía y Minería - OSINERGMIN;
-
-      Que, el Tribunal de Apelaciones de Sanciones en Temas de Energía y Minería ha evaluado el recurso de apelación presentado;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los parámetros de cumplimiento para instalaciones eléctricas en plantas industriales deberán incluir: (i) certificación de instalaciones, (ii) auditorías periódicas, y (iii) planes de eficiencia energética.
-
-      Artículo 2°.- Las empresas del sector industrial deberán adecuar sus instalaciones en un plazo no mayor a 180 días calendario.
-    `,
-    pdfUrl: "/documents/res-003.pdf",
+    tags: ["Minería", "Seguridad", "Accidente Laboral"],
+    date: "30/04/2024",
+    n_resolucion: "60-2024-OS/TASTEM-S2",
+    fecha_emision: "30.04.2024",
+    acto_impugnado: "Resolución de Gerencia de Supervisión Minera 558-2024 por la cual se sancionó por incumplir el Reglamento de Seguridad y Salud Ocupacional, aprobado por D.S. 024-2016-EM",
+    infracciones: [
+      "La supervisión no verificó el cumplimiento del punto 5 del numeral 5.9 del PETS 'Carguío y voladura en las labores mecanizadas' que señala 'Nunca realizar un disparo sin coordinar con el jefe de guardia y/o supervisor técnico'",
+      "La supervisión no ratificó o modificó el IPER continuo de la actividad o tarea: 'carguío de frente' el día del accidente en la labor SN 203"
+    ],
+    medidas_administrativas: [],
+    sancion_final: "21.74 UIT",
+    palabra_clave: ["Accidente mortal", "Derecho de defensa", "Legalidad", "Tipicidad", "Causalidad", "Non bis in ídem", "Primacía de la realidad", "Nulidad del procedimiento", "Caso fortuito o fuerza mayor", "Hecho determinante de tercero", "Interpretación extensiva", "Acceso a la asistencia legal", "PETS (procedimiento escrito de trabajo seguro)", "IPERC continuo", "Costo evitado", "Beneficio ilegalmente obtenido", "Incompetencia de Osinergmin"],
+    sentido: "Se declara infundado el recurso de apelación interpuesto contra la Resolución de Gerencia de Supervisión Minera 558-2024 y se confirma la citada resolución en todos sus extremos",
+    summary: "Los recurrenes incumplieron el numeral 4 del artículo 38 del RSSO dado que no se verificó que los trabajadores cumplan con el PETS 'Carguío y voladuras en labores mecanizadas', toda vez que la realización del disparo no se había coordinado con el Jefe de Guardia y/o supervisor técnico.",
+    content: "Sobre los vicios de nulidad del procedimiento y la competencia de Osinergmin: Las competencias de Osinergmin en el sector minero se encuentran previstas en la Ley 29901 y el Decreto Supremo 088-2013-PCM, las cuales establecen las disposiciones legales y técnicas en la actividad minera materia de competencia de Osinergmin, referidas a los aspectos de seguridad de la infraestructura, las instalaciones y la gestión de seguridad de sus operaciones. Teniendo ello en cuenta, en cuanto al incumplimiento del numeral 4 del artículo 38 del RSSO, el hecho se refiere a la no verificación del cumplimiento del PETS 'CARGUÍO Y VOLADURA EN LAS LABORES MECANIZADAS', durante la realización de la tarea de disparo, lo cual constituye un aspecto vinculado con la gestión de la seguridad de las operaciones.",
     relatedRegulations: [
       {
-        id: "reg-003",
-        title: "Ley N° 28749 - Ley General de Electrificación Rural",
-        description: "Establece el marco normativo para la electrificación de zonas rurales y urbano-marginales.",
-        changes: [
-          {
-            date: "18/01/2023",
-            description: "Modificación del artículo 9 sobre financiamiento"
-          },
-          {
-            date: "03/05/2021",
-            description: "Modificación del artículo 4 sobre desarrollo eficiente"
-          }
-        ],
-        articles: ["Artículo 4", "Artículo 9", "Artículo 12"]
+        id: "reg-tastem-001",
+        title: "Constitución",
+        description: "Normas constitucionales",
+        changes: [],
+        articles: ["Artículo 139"]
+      },
+      {
+        id: "reg-tastem-002",
+        title: "Decreto Supremo 024-2016-EM",
+        description: "Reglamento de Seguridad y Salud Ocupacional",
+        changes: [],
+        articles: ["Artículo 9", "Artículo 38 (numeral 4)", "Artículo 95"]
       }
     ]
   },
+
+  // Resoluciones TFA
   {
-    id: "res-010",
-    title: "Resolución N° 078-2023-OSINERGMIN/TASTEM sobre distribución de gas natural",
-    entity: "OSINERGMIN",
-    tags: ["Gas Natural", "Distribución", "Regulación"],
-    date: "12/04/2023",
-    n_resolucion: "078-2023-OSINERGMIN/TASTEM",
-    fecha_emision: "12/04/2023",
-    acto_impugnado: "Sanción administrativa de distribución de gas",
-    infracciones: ["Incumplimiento de planes de expansión", "Deficiencias en seguridad"],
-    medidas_administrativas: ["Actualización de plan quinquenal", "Capacitación comunitaria"],
-    sancion_final: "Multa de 50 UIT",
-    palabra_clave: ["Gas Natural", "Distribución", "Regulación", "Seguridad", "Expansión"],
-    sentido: "Parcialmente favorable al administrado",
-    summary: "Establece criterios técnicos para la expansión de redes de distribución de gas natural en zonas urbanas, priorizando la seguridad y el acceso equitativo al servicio.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 26734, se crea el Organismo Supervisor de la Inversión en Energía y Minería - OSINERGMIN;
-
-      Que, el Tribunal de Apelaciones de Sanciones en Temas de Energía y Minería ha evaluado el recurso de apelación sobre distribución de gas natural;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios técnicos para la expansión de redes de gas natural incluyen: (i) estudios de demanda potencial, (ii) análisis de riesgos geográficos, y (iii) programas de capacitación comunitaria.
-
-      Artículo 2°.- Las empresas concesionarias deberán presentar planes quinquenales de expansión siguiendo estos criterios en un plazo no mayor a 90 días calendario.
-    `,
-    pdfUrl: "/documents/res-010.pdf",
+    id: "res-tfa-005",
+    title: "Resolución N° 005-2024-OEFA/TFA-SE",
+    entity: "OEFA",
+    tags: ["Medio Ambiente", "Fiscalización"],
+    date: "04/01/2024",
+    n_resolucion: "005-2024-OEFA/TFA-SE",
+    fecha_emision: "04.01.2024",
+    acto_impugnado: "Resolución N° 041-2023-OEFA/DSEM que declaró infundado el recurso de reconsideración interpuesto contra la Resolución N° 0101-2022-OEFA/DSEM que ordenó el cumplimiento de mandatos de carácter particular y medida preventiva",
+    cuestiones_controvertidas: ["Determinar si correspondía ordenar los mandatos de carácter particular y la medida preventiva"],
+    medidas_administrativas: ["Medida preventiva", "Mandato de carácter particular"],
+    palabras_clave: ["Notificación defectuosa", "Debido procedimiento", "Derecho de defensa", "Mandato de carácter particular", "Medida preventiva", "Puntos de monitoreo", "Evaluación ambiental de causalidad", "Prevención"],
+    sentido: "Se confirma resolución N° 041-OEFA/DSEM y se declara infundado el recurso de apelación",
+    summary: "Transgresión al derecho de defensa y debido procedimiento: El derecho al debido procedimiento implica conocer los cargos o cuestiones imputadas a las conductas de los administrados para luego expresar las posiciones, argumentos y alegatos que sean posibles para lograr una decisión que se ajuste a la legalidad vigente.",
+    content: "Transgresión al derecho de defensa y debido procedimiento: El derecho al debido procedimiento implica conocer los cargos o cuestiones imputadas a las conductas de los administrados para luego expresar las posiciones, argumentos y alegatos que sean posibles para lograr una decisión que se ajuste a la legalidad vigente. Es un principio-derecho que concede a los administrados derechos y garantías implícitos a un procedimientos regular y justo, el cual debe ser observado por la Administración pública en la tramitación de los procedimientos administrativos que conduzcan a la creación, modificación o extinción de un derecho o la imposición de una obligación o sanción. El derecho de defensa se encuentra estrechamente vinculado a que se realice una debida notificación de los diferentes actos procedimientales que puedan afectar el ejercicio del mismo. Este derecho se vincula a una debida notificación de los diferentes actos procedimientales. La notificación es una garantía inherente al debido procedimiento.",
     relatedRegulations: [
       {
-        id: "reg-010",
-        title: "Ley N° 29496 - Ley de Promoción del Desarrollo de la Industria del Gas Natural",
-        description: "Establece el marco normativo para promover el desarrollo de la industria del gas natural.",
-        changes: [
-          {
-            date: "05/03/2023",
-            description: "Modificación sobre zonas prioritarias de masificación"
-          }
-        ],
-        articles: ["Artículo 3", "Artículo 7", "Artículo 12"]
-      }
-    ]
-  },
-  {
-    id: "res-011",
-    title: "Resolución N° 125-2023-OSINERGMIN/TASTEM sobre generación eléctrica renovable",
-    entity: "OSINERGMIN",
-    tags: ["Energía Renovable", "Generación", "Inversión"],
-    date: "30/06/2023",
-    n_resolucion: "125-2023-OSINERGMIN/TASTEM",
-    fecha_emision: "30/06/2023",
-    acto_impugnado: "Sanción administrativa sobre generación eléctrica",
-    infracciones: ["Incumplimiento de emisiones", "Deficiencias en interconexión"],
-    medidas_administrativas: ["Actualización tecnológica", "Auditoría de emisiones"],
-    sancion_final: "Multa de 35 UIT",
-    palabra_clave: ["Energía Renovable", "Generación", "Inversión", "Emisiones", "Despacho"],
-    sentido: "Favorable al administrado",
-    summary: "Define criterios regulatorios para facilitar la inversión en proyectos de generación eléctrica con fuentes renovables no convencionales, con enfoque en la reducción de emisiones.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 26734, se crea el Organismo Supervisor de la Inversión en Energía y Minería - OSINERGMIN;
-
-      Que, el Tribunal de Apelaciones de Sanciones en Temas de Energía y Minería ha evaluado el recurso de apelación sobre generación renovable;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios regulatorios para proyectos de generación renovable incluyen: (i) simplificación de trámites administrativos, (ii) incentivos para reducción de emisiones verificables, y (iii) prioridad en el despacho eléctrico.
-
-      Artículo 2°.- Se establece un procedimiento simplificado para la autorización de instalaciones de generación renovable de hasta 20 MW.
-    `,
-    pdfUrl: "/documents/res-011.pdf",
-    relatedRegulations: [
+        id: "reg-tfa-001",
+        title: "RCD 006-2019-OEFA/CD",
+        description: "Reglamento de Supervisión",
+        changes: [],
+        articles: ["Art. 25", "26", "art. 4 literal e)"]
+      },
       {
-        id: "reg-011",
-        title: "D.L. N° 1002 - Decreto Legislativo de promoción de la inversión para la generación de electricidad con energías renovables",
-        description: "Establece el marco normativo para promover la inversión en generación eléctrica con recursos renovables.",
-        changes: [
-          {
-            date: "10/05/2022",
-            description: "Actualización de mecanismos de promoción"
-          }
-        ],
-        articles: ["Artículo 4", "Artículo 7", "Artículo 11"]
+        id: "reg-tfa-002",
+        title: "Ley del SINEFA",
+        description: "Ley del Sistema Nacional de Evaluación y Fiscalización Ambiental",
+        changes: [],
+        articles: ["Literal b)", "numeral 11.1", "art. 11"]
       }
     ]
-  },
-
-  // CM Resolutions (INDECOPI)
-  {
-    id: "res-005",
-    title: "Resolución N° 076-2023-INDECOPI/CPC sobre protección al consumidor en servicios digitales",
-    entity: "INDECOPI",
-    tags: ["Digital", "Consumidor"],
-    date: "28/03/2023",
-    n_resolucion: "076-2023-INDECOPI/CPC",
-    fecha_emision: "28/03/2023",
-    acto_impugnado: "Controversia contractual",
-    cuestiones_controvertidas: ["Cumplimiento de contrato digital", "Condiciones de servicio"],
-    palabras_clave: ["Digital", "Consumidor", "Servicios digitales", "Protección"],
-    sentido: "Parcialmente fundado",
-    persona_natural: "Persona jurídica",
-    cuestiones_adicionales: ["Privacidad de datos", "Consentimiento informado"],
-    summary: "Define los estándares de protección al consumidor aplicables a servicios digitales, incluyendo aspectos relacionados con la privacidad de datos y términos de servicio.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 25868, se crea el Instituto Nacional de Defensa de la Competencia y de la Protección de la Propiedad Intelectual - INDECOPI;
-
-      Que, la Comisión de Protección al Consumidor ha evaluado la denuncia presentada contra un proveedor de servicios digitales;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los estándares de protección al consumidor aplicables a servicios digitales incluyen: (i) transparencia en la información, (ii) consentimiento informado para uso de datos, y (iii) mecanismos efectivos de reclamo.
-
-      Artículo 2°.- Los proveedores de servicios digitales deberán adecuar sus términos y condiciones en un plazo no mayor a 90 días calendario.
-    `,
-    pdfUrl: "/documents/res-005.pdf",
-    relatedRegulations: [
-      {
-        id: "reg-005",
-        title: "Ley N° 29571 - Código de Protección y Defensa del Consumidor",
-        description: "Establece las normas de protección y defensa de los consumidores.",
-        changes: [
-          {
-            date: "14/02/2023",
-            description: "Modificación del artículo 58 sobre servicios públicos regulados"
-          },
-          {
-            date: "07/08/2021",
-            description: "Modificación del artículo 24 sobre servicio de atención de reclamos"
-          }
-        ],
-        articles: ["Artículo 24", "Artículo 58", "Artículo 104"]
-      }
-    ]
-  },
-  {
-    id: "res-004",
-    title: "Resolución N° 089-2022-INDECOPI/TF sobre tributación en el sector comercial",
-    entity: "INDECOPI",
-    tags: ["Comercio", "Tributación"],
-    date: "12/09/2022",
-    n_resolucion: "089-2022-INDECOPI/TF",
-    fecha_emision: "12/09/2022",
-    acto_impugnado: "Controversia contractual",
-    cuestiones_controvertidas: ["Cumplimiento de contrato", "Indemnización por daños"],
-    palabras_clave: ["Comercio", "Tributación", "E-commerce", "Beneficios fiscales"],
-    sentido: "Fundado",
-    persona_natural: "Persona jurídica",
-    cuestiones_adicionales: ["Documentación fehaciente", "Sustancia económica"],
-    summary: "Establece criterios interpretativos para la aplicación de beneficios tributarios en empresas del sector comercial, con especial énfasis en el comercio electrónico.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante el Decreto Legislativo N° 501, se crea la Superintendencia Nacional de Administración Tributaria - SUNAT;
-
-      Que, el Tribunal Fiscal ha evaluado el recurso de apelación presentado por el contribuyente;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios interpretativos para la aplicación de beneficios tributarios incluyen: (i) verificación de requisitos formales, (ii) sustancia económica de las operaciones, y (iii) documentación fehaciente.
-
-      Artículo 2°.- Para el comercio electrónico, se deberán considerar adicionalmente los lineamientos establecidos en el Informe N° 045-2022-SUNAT/7T0000.
-    `,
-    pdfUrl: "/documents/res-004.pdf",
-    relatedRegulations: [
-      {
-        id: "reg-004",
-        title: "Decreto Legislativo N° 937 - Texto del Nuevo Régimen Único Simplificado",
-        description: "Establece el Nuevo Régimen Único Simplificado (Nuevo RUS).",
-        changes: [
-          {
-            date: "20/12/2022",
-            description: "Modificación del artículo 6 sobre categorías del Nuevo RUS"
-          },
-          {
-            date: "05/03/2021",
-            description: "Modificación del artículo 3 sobre personas no comprendidas"
-          }
-        ],
-        articles: ["Artículo 3", "Artículo 6", "Artículo 8"]
-      }
-    ]
-  },
-  {
-    id: "res-012",
-    title: "Resolución N° 103-2023-INDECOPI/CPC sobre prácticas comerciales en comercio electrónico",
-    entity: "INDECOPI",
-    tags: ["E-commerce", "Publicidad", "Consumidor"],
-    date: "15/05/2023",
-    n_resolucion: "103-2023-INDECOPI/CPC",
-    fecha_emision: "15/05/2023",
-    acto_impugnado: "Controversia contractual",
-    cuestiones_controvertidas: ["Prácticas comerciales engañosas", "Políticas de devolución"],
-    palabras_clave: ["E-commerce", "Publicidad", "Consumidor", "Transparencia"],
-    sentido: "Parcialmente fundado",
-    persona_natural: "Persona jurídica",
-    cuestiones_adicionales: ["Visualización de precios", "Cargos adicionales"],
-    summary: "Establece estándares sobre prácticas comerciales en plataformas de comercio electrónico, enfatizando la transparencia en precios, promociones y políticas de devolución.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 25868, se crea el Instituto Nacional de Defensa de la Competencia y de la Protección de la Propiedad Intelectual - INDECOPI;
-
-      Que, la Comisión de Protección al Consumidor ha evaluado las denuncias presentadas sobre prácticas en comercio electrónico;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los estándares sobre prácticas comerciales en e-commerce incluyen: (i) visualización clara del precio final incluyendo cargos adicionales, (ii) información sobre stock disponible, y (iii) políticas de cancelación y devolución accesibles.
-
-      Artículo 2°.- Las plataformas de comercio electrónico deberán implementar estas prácticas en un plazo no mayor a 60 días calendario.
-    `,
-    pdfUrl: "/documents/res-012.pdf",
-    relatedRegulations: [
-      {
-        id: "reg-012",
-        title: "Ley N° 29571 - Código de Protección y Defensa del Consumidor",
-        description: "Establece las normas de protección y defensa de los consumidores.",
-        changes: [
-          {
-            date: "14/02/2023",
-            description: "Modificación del artículo 58 sobre servicios públicos regulados"
-          }
-        ],
-        articles: ["Artículo 1", "Artículo 2", "Artículo 3"]
-      }
-    ]
-  },
-  {
-    id: "res-013",
-    title: "Resolución N° 154-2023-INDECOPI/CPC sobre propiedad intelectual en contenido digital",
-    entity: "INDECOPI",
-    tags: ["Propiedad Intelectual", "Digital", "Derechos de Autor"],
-    date: "08/08/2023",
-    n_resolucion: "154-2023-INDECOPI/CPC",
-    fecha_emision: "08/08/2023",
-    acto_impugnado: "Controversia contractual",
-    cuestiones_controvertidas: ["Autoría en contenido generado por IA", "Protección intelectual"],
-    palabras_clave: ["Propiedad Intelectual", "Digital", "Derechos de Autor", "IA", "Inteligencia Artificial"],
-    sentido: "Infundado",
-    persona_natural: "Persona jurídica",
-    cuestiones_adicionales: ["Intervención humana", "Originalidad", "Predictibilidad"],
-    summary: "Resuelve controversia sobre derechos de autor en contenidos generados por algoritmos de inteligencia artificial, estableciendo criterios para determinar la autoría y protección.",
-    content: `
-      CONSIDERANDO:
-
-      Que, mediante la Ley N° 25868, se crea el Instituto Nacional de Defensa de la Competencia y de la Protección de la Propiedad Intelectual - INDECOPI;
-
-      Que, la Comisión de Derechos de Autor ha evaluado la controversia sobre contenido generado por IA;
-
-      SE RESUELVE:
-
-      Artículo 1°.- Los criterios para determinar la autoría en contenidos generados por IA incluyen: (i) grado de intervención humana en la creación, (ii) originalidad de los parámetros de entrada, y (iii) nivel de predictibilidad del resultado.
-
-      Artículo 2°.- Se establece que los contenidos generados íntegramente por IA sin intervención humana significativa no son susceptibles de protección por derechos de autor.
-    `,
-    pdfUrl: "/documents/res-013.pdf",
-    relatedRegulations: [
-      {
-        id: "reg-013",
-        title: "Decreto Legislativo N° 822 - Ley sobre el Derecho de Autor",
-        description: "Establece el régimen de protección de los derechos de autor y derechos conexos.",
-        changes: [
-          {
-            date: "25/11/2022",
-            description: "Actualización sobre obras en entorno digital"
-          }
-        ],
-        articles: ["Artículo 2", "Artículo 5", "Artículo 31"]
-      }
-    ]
-  },
+  }
 ];
