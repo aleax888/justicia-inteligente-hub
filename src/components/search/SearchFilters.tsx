@@ -19,7 +19,7 @@ interface SearchFiltersProps {
 export function SearchFilters({ onSearch }: SearchFiltersProps) {
   const [keyword, setKeyword] = useState("");
   const [selectedFilterOptions, setSelectedFilterOptions] = useState<string[]>([]);
-  const [dateRange, setDateRange] = useState<DateRange>({
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined
   });
@@ -41,6 +41,10 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
 
   const handleFilterSelectionChange = (selectedIds: string[]) => {
     setSelectedFilterOptions(selectedIds);
+  };
+
+  const handleSelectDateRange = (range: DateRange | undefined) => {
+    setDateRange(range);
   };
 
   return (
@@ -91,7 +95,7 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
                   className="w-full justify-start text-left font-normal"
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {dateRange.from ? (
+                  {dateRange?.from ? (
                     dateRange.to ? (
                       <>
                         {format(dateRange.from, "dd/MM/yyyy", { locale: es })} - {format(dateRange.to, "dd/MM/yyyy", { locale: es })}
@@ -108,7 +112,7 @@ export function SearchFilters({ onSearch }: SearchFiltersProps) {
                 <Calendar
                   mode="range"
                   selected={dateRange}
-                  onSelect={setDateRange}
+                  onSelect={handleSelectDateRange}
                   initialFocus
                   locale={es}
                   className="pointer-events-auto"
